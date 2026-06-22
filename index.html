@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Victor Salazar — cs + math student</title>
+<meta name="description" content="Victor Salazar — CS and Math student focused on AI, web development, and software engineering.">
+<script>
+  (function() {
+    var saved = localStorage.getItem('theme');
+    var sys = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', saved || sys);
+  })();
+</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">← inspo</a>
+  <nav class="page-nav">
+    <a href="index.html" class="active">home</a>
+    <a href="experience.html">experience</a>
+    <a href="projects.html">projects</a>
+  </nav>
+  <div class="spacer"></div>
+  <button class="toggle" id="theme-toggle"><span class="dot"></span><span id="theme-label">light</span></button>
+  <span class="live">online</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<main>
+  <header>
+    <p class="prompt-row"><span class="g">vic@home</span>:<span class="b">~</span>$ whoami</p>
+    <h1>Victor Salazar<span class="dot-end">.</span></h1>
+    <p class="tagline">cs + math student · swe · web · ai</p>
+  </header>
+
+  <section class="intro">
+    <p>
+      I'm a senior at <strong>MSU Denver</strong> studying Computer Science and
+      Mathematics. My background spans software engineering, full-stack web,
+      backend, devops, AI development, and cybersecurity — built through formal
+      coursework, the
+      <a href="https://codethedream.org/" target="_blank" rel="noopener">Code The Dream</a>
+      full-stack web dev cohort, and independent research alongside professors
+      at MSU Denver.
+    </p>
+    <p>
+      Currently looking for <strong>internships or apprenticeships</strong> in
+      SWE, full-stack web, backend, or cybersecurity. Based in Denver, CO.
+    </p>
+  </section>
+
+  <section>
+    <h2>at a glance</h2>
+    <div class="facts">
+      <div class="row"><span class="k">based</span><span class="v">denver, co · remote-friendly</span></div>
+      <div class="row"><span class="k">school</span><span class="v">msu denver — cs + math · may 2027</span></div>
+      <div class="row"><span class="k">cohort</span><span class="v">code the dream · full-stack web dev</span></div>
+      <div class="row"><span class="k">stack</span><span class="v">python · javascript · typescript · fastapi · aws · sql</span></div>
+      <div class="row"><span class="k">status</span><span class="v green">open to internships / apprenticeships — swe · web · backend · cyber</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>read more</h2>
+    <div class="links-grid">
+      <a href="experience.html" class="link-card">
+        <span class="num">01</span>
+        <span class="title">experience</span>
+        <span class="desc">roles, education, certs, skills.</span>
+      </a>
+      <a href="projects.html" class="link-card">
+        <span class="num">02</span>
+        <span class="title">projects</span>
+        <span class="desc">things i've built + recent activity.</span>
+      </a>
+      <a href="/blog" class="link-card">
+        <span class="num">03</span>
+        <span class="title">blog</span>
+        <span class="desc">notes from learning in public.</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://github.com/victor0302" target="_blank" rel="noopener">github</a>
+    <a href="#">linkedin</a>
+    <a href="mailto:victorsalazar.01.vv@gmail.com">email</a>
+    <a href="#">resume.pdf</a>
+    <span style="margin-left:auto;">$ updated · 2026-06-22</span>
+  </footer>
+</main>
+
+<script src="shared.js"></script>
+</body>
+</html>

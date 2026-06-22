@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Victor Salazar — experience</title>
+<meta name="description" content="Victor Salazar — experience, programs, research, education, certifications, and skills.">
+<script>
+  (function() {
+    var saved = localStorage.getItem('theme');
+    var sys = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', saved || sys);
+  })();
+</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">← inspo</a>
+  <nav class="page-nav">
+    <a href="index.html">home</a>
+    <a href="experience.html" class="active">experience</a>
+    <a href="projects.html">projects</a>
+  </nav>
+  <div class="spacer"></div>
+  <button class="toggle" id="theme-toggle"><span class="dot"></span><span id="theme-label">light</span></button>
+  <span class="live">online</span>
+  <span id="clock">--:--:--</span>
+</div>
+
+<main>
+  <header>
+    <p class="prompt-row"><span class="g">vic@home</span>:<span class="b">~/experience</span>$ cat history.md</p>
+    <h1>Experience<span class="dot-end">.</span></h1>
+    <p class="tagline">programs · research · work · education · skills</p>
+  </header>
+
+  <section>
+    <h2>experience &amp; programs</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-when">2026 — present</div>
+        <div class="exp-body">
+          <div class="exp-title">Full-stack web dev cohort <span class="exp-org">— Code The Dream</span></div>
+          <ul class="exp-bullets">
+            <li>Just completed the <strong>Intro to Programming</strong> course (10-week curriculum, HTML / CSS / JavaScript fundamentals).</li>
+            <li>Capstone: built and shipped <a href="https://github.com/victor0302/victor-salazar-intro" target="_blank" rel="noopener">victor-salazar-intro</a>, a static portfolio site as the course's final project.</li>
+            <li>Continuing through the rest of the full-stack web dev track — coursework and projects logged in the <a href="https://github.com/victor0302/CTD" target="_blank" rel="noopener">CTD</a> repo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-when">2026 — present</div>
+        <div class="exp-body">
+          <div class="exp-title">Personal portfolio + blog <span class="exp-org">— self-directed, full-stack</span></div>
+          <ul class="exp-bullets">
+            <li><strong>Front-end shipped:</strong> multi-page static portfolio in vanilla HTML, CSS, and JavaScript — dark/light theme toggle, live GitHub activity feed via the GitHub API, fully responsive. No frameworks, no build step.</li>
+            <li><strong>Back-end (in progress):</strong> blog engine in Go using <code>net/http</code>, <code>html/template</code>, and SQLite — standard library only, with goldmark for Markdown rendering.</li>
+            <li><strong>CI/CD (planned):</strong> GitHub Actions for build, test, and deploy. A single Go binary serves both the landing page and the blog routes. Stretch: rebuild the frontend as a React + TypeScript SPA against the same JSON API.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-when">Aug — Dec 2026</div>
+        <div class="exp-body">
+          <div class="exp-title">Independent CS Research <span class="exp-org">— MSU Denver</span></div>
+          <ul class="exp-bullets">
+            <li class="placeholder">[edit: topic, faculty mentor(s), and what you actually built / researched]</li>
+            <li class="placeholder">[edit: tangible outputs — prototypes, reports, demos, anything shareable]</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-when">Jan 2021 — Aug 2024</div>
+        <div class="exp-body">
+          <div class="exp-title">Certified Pharmacy Technician (CPhT) <span class="exp-org">— Walmart Pharmacy, Denver, CO</span></div>
+          <ul class="exp-bullets">
+            <li>Managed high-volume workflows (200+ daily) and resolved complex insurance issues as a liaison between patients and prescribers.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>education</h2>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-when">expected May 2027</div>
+        <div class="exp-body">
+          <div class="exp-title">B.S. Computer Science &amp; B.S. Mathematics <span class="exp-org">— Metropolitan State University of Denver</span></div>
+          <ul class="exp-bullets">
+            <li><strong>Relevant coursework:</strong> Data Structures &amp; Algorithms, Operating Systems, Database Systems, Software Engineering, Linear Algebra.</li>
+            <li class="placeholder">[optional: GPA if it's strong (3.5+), dean's list, scholarships, honors]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>certifications</h2>
+    <ul class="cert-list">
+      <li>
+        <span>CompTIA Security+</span>
+        <span class="when">2026</span>
+      </li>
+      <li>
+        <span>AWS Certified Cloud Practitioner <span style="opacity:.7;">(CLF-C02)</span></span>
+        <span class="when">2026</span>
+      </li>
+      <li>
+        <span>MongoDB Associate Developer <span style="opacity:.7;">(Node.js)</span></span>
+        <span class="when">2026</span>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>skills</h2>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h3>languages</h3>
+        <ul>
+          <li>python</li>
+          <li>typescript</li>
+          <li>javascript</li>
+          <li>java</li>
+          <li>go</li>
+          <li>c</li>
+          <li>bash · sql</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>web &amp; backend</h3>
+        <ul>
+          <li>spring boot</li>
+          <li>node · express</li>
+          <li>react</li>
+          <li>fastapi</li>
+          <li>nginx</li>
+          <li>html · css</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>cloud &amp; devops</h3>
+        <ul>
+          <li>docker · kubernetes</li>
+          <li>aws · heroku</li>
+          <li>postgresql · mongodb · mysql</li>
+          <li>github actions · ci/cd</li>
+          <li>git · linux cli</li>
+          <li>pytest · vitest · junit</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>ai &amp; embedded</h3>
+        <ul>
+          <li class="placeholder">[ in progress — building up ]</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://github.com/victor0302" target="_blank" rel="noopener">github</a>
+    <a href="#">linkedin</a>
+    <a href="mailto:victorsalazar.01.vv@gmail.com">email</a>
+    <a href="#">resume.pdf</a>
+    <span style="margin-left:auto;">$ updated · 2026-06-22</span>
+  </footer>
+</main>
+
+<script src="shared.js"></script>
+</body>
+</html>
