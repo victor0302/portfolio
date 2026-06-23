@@ -1,9 +1,11 @@
 # compiled binaries
 /bin/
+/server
+/cmd/server/server
+
+# test & coverage
 *.test
 *.out
-
-# coverage
 coverage.txt
 coverage.html
 
