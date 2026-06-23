@@ -9,6 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/victor0302/portfolio/blog/internal/handlers"
 )
 
 func main() {
@@ -19,6 +21,8 @@ func main() {
 	addr := ":" + port
 
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /healthz", handlers.Healthz)
+	mux.HandleFunc("GET /hello", handlers.Hello)
 
 	srv := &http.Server{
 		Addr:    addr,
