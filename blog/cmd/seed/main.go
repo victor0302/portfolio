@@ -17,21 +17,46 @@ import (
 
 var seedPosts = []models.Post{
 	{
-		Title:     "Hello, world",
-		Slug:      "hello-world",
-		Body:      "First post on the new blog backend. Written in Go, served from SQLite.",
+		Title: "Hello, world",
+		Slug:  "hello-world",
+		Body: `First post on the new **blog backend**. Written in Go, served from SQLite.
+
+A few things I'd like to use this for:
+
+- Notes on whatever I'm currently building
+- Stuff I'm learning about Go, SQL, and the web
+- The occasional opinion about [tooling](https://example.com)
+`,
 		Published: true,
 	},
 	{
-		Title:     "Why I built this",
-		Slug:      "why-i-built-this",
-		Body:      "A short note on why a hand-rolled Go + SQLite blog made sense for me.",
+		Title: "Why I built this",
+		Slug:  "why-i-built-this",
+		Body: `A short note on why a hand-rolled Go + SQLite blog made sense for me.
+
+## The constraints
+
+I wanted something I could:
+
+1. Understand end-to-end
+2. Deploy as a single binary + a file
+3. Extend without fighting a framework
+
+## What I picked
+
+` + "`net/http`" + ` for routing, ` + "`database/sql`" + ` for queries, ` + "`html/template`" + ` for rendering, and goldmark for Markdown. That's it.
+`,
 		Published: true,
 	},
 	{
-		Title:     "Draft: roadmap",
-		Slug:      "draft-roadmap",
-		Body:      "Things I want to ship next: tags, RSS, an admin UI.",
+		Title: "Draft: roadmap",
+		Slug:  "draft-roadmap",
+		Body: `Things I want to ship next:
+
+- Tags + filtering
+- RSS feed
+- A tiny admin UI for writing posts in the browser
+`,
 		Published: false,
 	},
 }

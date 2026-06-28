@@ -102,6 +102,34 @@ func TestBlogPost_RendersExistingPost(t *testing.T) {
 	}
 }
 
+func TestBlogPost_RendersMarkdownBody(t *testing.T) {
+	d := newTestDB(t)
+	body := "Hello **world**\n\n- one\n- two\n"
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "Markdown", Slug: "md", Body: body, Published: true,
+	}); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog/md", nil)
+	req.SetPathValue("slug", "md")
+	rec := httptest.NewRecorder()
+	BlogPost(d)(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status: got %d, want 200", rec.Code)
+	}
+	out := rec.Body.String()
+	for _, want := range []string{"<strong>world</strong>", "<ul>", "<li>one</li>", "<li>two</li>"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("expected %q in rendered HTML, got: %s", want, out)
+		}
+	}
+	if strings.Contains(out, "**world**") {
+		t.Errorf("raw markdown leaked into rendered output: %s", out)
+	}
+}
+
 func TestBlogPost_404OnUnknownSlug(t *testing.T) {
 	d := newTestDB(t)
 
