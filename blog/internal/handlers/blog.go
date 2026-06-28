@@ -3,11 +3,13 @@ package handlers
 import (
 	"database/sql"
 	"errors"
+	"html/template"
 	"log"
 	"net/http"
 	"strings"
 	"time"
 
+	"github.com/victor0302/portfolio/blog/internal/markdown"
 	"github.com/victor0302/portfolio/blog/internal/models"
 	"github.com/victor0302/portfolio/blog/internal/templates"
 )
@@ -50,8 +52,9 @@ func BlogIndex(db *sql.DB) http.HandlerFunc {
 }
 
 type blogPostData struct {
-	Title string
-	Post  *models.Post
+	Title    string
+	Post     *models.Post
+	BodyHTML template.HTML
 }
 
 // BlogPost returns a handler for GET /blog/{slug}. It renders a single post
@@ -70,8 +73,19 @@ func BlogPost(db *sql.DB) http.HandlerFunc {
 			http.Error(w, "internal server error", http.StatusInternalServerError)
 			return
 		}
+		bodyHTML, err := markdown.ToHTML(post.Body)
+		if err != nil {
+			log.Printf("blog post %q: render markdown: %v", slug, err)
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		if err := templates.Render(w, "blog_post", blogPostData{Title: post.Title, Post: post}); err != nil {
+		data := blogPostData{
+			Title:    post.Title,
+			Post:     post,
+			BodyHTML: template.HTML(bodyHTML),
+		}
+		if err := templates.Render(w, "blog_post", data); err != nil {
 			log.Printf("blog post %q: render: %v", slug, err)
 		}
 	}
