@@ -7,8 +7,8 @@
   --accent: #c45a2c; --green: #5a8a4a;
 }
 [data-theme="dark"] {
-  --bg: #121418; --panel: #1c1f25;
-  --fg: #ece2cf; --dim: #8a7e6e; --rule: #382a1f;
+  --bg: #000000; --panel: #141414;
+  --fg: #ece2cf; --dim: #8a7e6e; --rule: #262626;
   --accent: #e07b5a; --green: #8eb86c;
 }
 
