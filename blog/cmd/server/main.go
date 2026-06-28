@@ -35,6 +35,7 @@ func main() {
 	mux.HandleFunc("GET /healthz", handlers.Healthz)
 	mux.HandleFunc("GET /hello", handlers.Hello)
 	mux.Handle("GET /blog", handlers.BlogIndex(sqlDB))
+	mux.Handle("GET /blog/{slug}", handlers.BlogPost(sqlDB))
 
 	srv := &http.Server{
 		Addr:    addr,

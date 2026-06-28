@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"database/sql"
+	"errors"
 	"log"
 	"net/http"
 	"strings"
@@ -44,6 +45,34 @@ func BlogIndex(db *sql.DB) http.HandlerFunc {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		if err := templates.Render(w, "blog_index", blogIndexData{Title: "Blog", Posts: entries}); err != nil {
 			log.Printf("blog index: render: %v", err)
+		}
+	}
+}
+
+type blogPostData struct {
+	Title string
+	Post  *models.Post
+}
+
+// BlogPost returns a handler for GET /blog/{slug}. It renders a single post
+// or 404 if the slug is unknown. Drafts are reachable by slug — gating drafts
+// is admin work for Phase 5.
+func BlogPost(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		slug := r.PathValue("slug")
+		post, err := models.GetPostBySlug(db, slug)
+		if errors.Is(err, sql.ErrNoRows) {
+			http.NotFound(w, r)
+			return
+		}
+		if err != nil {
+			log.Printf("blog post %q: %v", slug, err)
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		if err := templates.Render(w, "blog_post", blogPostData{Title: post.Title, Post: post}); err != nil {
+			log.Printf("blog post %q: render: %v", slug, err)
 		}
 	}
 }

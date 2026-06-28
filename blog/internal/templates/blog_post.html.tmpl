@@ -1,0 +1,16 @@
+{{define "content"}}
+<article class="post">
+  <header>
+    <h1>{{.Post.Title}}</h1>
+    <p class="meta">
+      <time datetime="{{.Post.CreatedAt.Format "2006-01-02"}}">
+        {{.Post.CreatedAt.Format "Jan 2, 2006"}}
+      </time>
+    </p>
+  </header>
+  <div class="body">
+    {{.Post.Body}}
+  </div>
+  <p class="back"><a href="/blog">&larr; All posts</a></p>
+</article>
+{{end}}
