@@ -18,7 +18,6 @@ import (
 
 func main() {
 	dbPath := flag.String("db", envOr("BLOG_DB", "blog.db"), "path to sqlite database file")
-	landingDir := flag.String("landing", envOr("LANDING_DIR", "../landing"), "path to landing/ static files; empty to disable")
 	flag.Parse()
 
 	port := envOr("PORT", "8080")
@@ -40,17 +39,6 @@ func main() {
 	mux.Handle("GET /blog/{slug}", handlers.BlogPost(sqlDB))
 	mux.Handle("GET /static/", http.StripPrefix("/static/", static.Handler()))
 
-	if *landingDir != "" {
-		info, err := os.Stat(*landingDir)
-		if err != nil {
-			log.Fatalf("landing dir %q: %v", *landingDir, err)
-		}
-		if !info.IsDir() {
-			log.Fatalf("landing %q is not a directory", *landingDir)
-		}
-		mux.Handle("GET /", http.FileServer(http.Dir(*landingDir)))
-	}
-
 	srv := &http.Server{
 		Addr:    addr,
 		Handler: mux,
@@ -60,7 +48,7 @@ func main() {
 	defer stop()
 
 	go func() {
-		log.Printf("listening on %s db=%s landing=%s", addr, *dbPath, *landingDir)
+		log.Printf("listening on %s db=%s", addr, *dbPath)
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("server error: %v", err)
 		}
