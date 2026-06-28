@@ -1,7 +1,9 @@
 # compiled binaries
 /bin/
 /server
+/seed
 /cmd/server/server
+/cmd/seed/seed
 
 # test & coverage
 *.test
