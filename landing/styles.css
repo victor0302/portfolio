@@ -115,6 +115,17 @@ h3 {
   margin: 0 0 1rem;
 }
 
+/* Inline body links (intro + experience bullets) — overrides default blue */
+.intro a,
+.exp-bullets a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: border-color .15s ease;
+}
+.intro a:hover,
+.exp-bullets a:hover { border-color: var(--accent); }
+
 /* ─── at-a-glance facts panel ────────────────────────────────── */
 .facts {
   background: var(--panel);
