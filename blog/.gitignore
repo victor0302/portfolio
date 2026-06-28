@@ -1,0 +1,14 @@
+# compiled binaries
+/bin/
+/server
+/cmd/server/server
+
+# test & coverage
+*.test
+*.out
+coverage.txt
+coverage.html
+
+# go workspace files
+go.work
+go.work.sum
