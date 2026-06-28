@@ -8,8 +8,8 @@
   --c-java:#a06640; --c-c:#6a737d;
 }
 [data-theme="dark"] {
-  --bg: #121418; --panel: #1c1f25;
-  --fg: #ece2cf; --dim: #8a7e6e; --rule: #382a1f;
+  --bg: #000000; --panel: #141414;
+  --fg: #ece2cf; --dim: #8a7e6e; --rule: #262626;
   --accent: #e07b5a; --green: #8eb86c;
   --hash: #b58ad8;
   --c-python:#5a9bd8; --c-go:#2dc3bb; --c-bash:#8eb86c;
