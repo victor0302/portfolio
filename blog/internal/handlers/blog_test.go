@@ -74,6 +74,68 @@ func TestBlogIndex_EmptyState(t *testing.T) {
 	}
 }
 
+func TestBlogPost_RendersExistingPost(t *testing.T) {
+	d := newTestDB(t)
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "Hello", Slug: "hello", Body: "some body text", Published: true,
+	}); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog/hello", nil)
+	req.SetPathValue("slug", "hello")
+	rec := httptest.NewRecorder()
+	BlogPost(d)(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status: got %d, want 200", rec.Code)
+	}
+	body := rec.Body.String()
+	if !strings.Contains(body, "<h1>Hello</h1>") {
+		t.Errorf("expected title in body, got: %s", body)
+	}
+	if !strings.Contains(body, "some body text") {
+		t.Errorf("expected body content, got: %s", body)
+	}
+	if !strings.Contains(body, `href="/blog"`) {
+		t.Errorf("expected back link to /blog, got: %s", body)
+	}
+}
+
+func TestBlogPost_404OnUnknownSlug(t *testing.T) {
+	d := newTestDB(t)
+
+	req := httptest.NewRequest(http.MethodGet, "/blog/missing", nil)
+	req.SetPathValue("slug", "missing")
+	rec := httptest.NewRecorder()
+	BlogPost(d)(rec, req)
+
+	if rec.Code != http.StatusNotFound {
+		t.Fatalf("status: got %d, want 404", rec.Code)
+	}
+}
+
+func TestBlogPost_DraftIsReachableBySlug(t *testing.T) {
+	d := newTestDB(t)
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "Draft Title", Slug: "draft", Body: "draft body", Published: false,
+	}); err != nil {
+		t.Fatalf("insert draft: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog/draft", nil)
+	req.SetPathValue("slug", "draft")
+	rec := httptest.NewRecorder()
+	BlogPost(d)(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status: got %d, want 200 (drafts reachable by slug until admin auth lands)", rec.Code)
+	}
+	if !strings.Contains(rec.Body.String(), "Draft Title") {
+		t.Errorf("expected draft title in body")
+	}
+}
+
 func TestExcerpt(t *testing.T) {
 	cases := []struct {
 		name string
