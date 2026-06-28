@@ -13,6 +13,7 @@ import (
 
 	"github.com/victor0302/portfolio/blog/internal/db"
 	"github.com/victor0302/portfolio/blog/internal/handlers"
+	"github.com/victor0302/portfolio/blog/internal/static"
 )
 
 func main() {
@@ -36,6 +37,7 @@ func main() {
 	mux.HandleFunc("GET /hello", handlers.Hello)
 	mux.Handle("GET /blog", handlers.BlogIndex(sqlDB))
 	mux.Handle("GET /blog/{slug}", handlers.BlogPost(sqlDB))
+	mux.Handle("GET /static/", http.StripPrefix("/static/", static.Handler()))
 
 	srv := &http.Server{
 		Addr:    addr,

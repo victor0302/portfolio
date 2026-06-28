@@ -1,0 +1,164 @@
+/* Palette + typography mirror landing/styles.css so the blog feels like
+   the same site. Kept independent so the two can evolve separately. */
+
+:root {
+  --bg: #f4ede0; --panel: #eee5d3;
+  --fg: #1f1a14; --dim: #847b6b; --rule: #d8cdb6;
+  --accent: #c45a2c; --green: #5a8a4a;
+}
+[data-theme="dark"] {
+  --bg: #181210; --panel: #221912;
+  --fg: #ece2cf; --dim: #8a7e6e; --rule: #382a1f;
+  --accent: #e07b5a; --green: #8eb86c;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: "JetBrains Mono","IBM Plex Mono",ui-monospace,monospace;
+  font-size: 14px; line-height: 1.65;
+  min-height: 100vh; padding: 1.25rem 1.5rem 6rem;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+/* ── topbar / nav ─────────────────────────────────────────────── */
+.topbar {
+  max-width: 880px; margin: 0 auto 3rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  font-size: .8rem; color: var(--dim);
+  border-bottom: 1px solid var(--rule); padding-bottom: .85rem;
+}
+.page-nav { display: flex; gap: 1rem; }
+.page-nav a {
+  color: var(--dim); text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: color .15s ease, border-color .15s ease;
+}
+.page-nav a:hover { color: var(--accent); border-color: var(--accent); }
+
+main { max-width: 880px; margin: 0 auto; }
+
+/* ── blog index ───────────────────────────────────────────────── */
+.blog-index h1 {
+  font-size: clamp(2rem, 5vw, 2.4rem);
+  font-weight: 700; margin: 0 0 1.5rem;
+  letter-spacing: -.015em;
+}
+.post-list {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 1.25rem;
+}
+.post-list .post {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.post-list .post:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.post-list .post h2 {
+  margin: 0 0 .35rem;
+  font-size: 1rem; font-weight: 600;
+}
+.post-list .post h2 a {
+  color: var(--fg); text-decoration: none;
+}
+.post-list .post h2 a:hover { color: var(--accent); }
+.post-list .post .meta {
+  margin: 0 0 .5rem;
+  color: var(--dim);
+  font-size: .75rem; text-transform: uppercase; letter-spacing: .1em;
+}
+.post-list .post .excerpt {
+  margin: 0;
+  color: var(--fg); font-size: .9rem;
+}
+.blog-index .empty {
+  color: var(--dim); font-style: italic;
+}
+
+/* ── single post ──────────────────────────────────────────────── */
+article.post header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+article.post header h1 {
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  font-weight: 700; margin: 0 0 .35rem;
+  letter-spacing: -.015em;
+}
+article.post header .meta {
+  margin: 0;
+  color: var(--dim);
+  font-size: .75rem; text-transform: uppercase; letter-spacing: .1em;
+}
+article.post .body {
+  max-width: 65ch;
+}
+article.post .body h1,
+article.post .body h2,
+article.post .body h3 {
+  margin: 1.75rem 0 .75rem;
+  letter-spacing: -.01em;
+}
+article.post .body h1 { font-size: 1.4rem; font-weight: 700; }
+article.post .body h2 { font-size: 1.15rem; font-weight: 700; color: var(--fg); }
+article.post .body h3 { font-size: 1rem; font-weight: 600; color: var(--fg); }
+article.post .body p { margin: 0 0 1rem; }
+article.post .body ul,
+article.post .body ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+article.post .body li { margin: .2rem 0; }
+article.post .body li::marker { color: var(--accent); }
+article.post .body a {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+article.post .body a:hover { border-color: var(--accent); }
+article.post .body code {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: .05rem .3rem;
+  font-size: .85em;
+}
+article.post .body pre {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: .85rem 1rem;
+  overflow-x: auto;
+  font-size: .85rem;
+}
+article.post .body pre code {
+  background: none; border: none; padding: 0;
+}
+article.post .body blockquote {
+  margin: 0 0 1rem;
+  padding: .5rem 1rem;
+  border-left: 3px solid var(--accent);
+  color: var(--dim);
+}
+article.post .back {
+  margin-top: 2.5rem;
+  font-size: .85rem;
+}
+article.post .back a {
+  color: var(--dim); text-decoration: none;
+}
+article.post .back a:hover { color: var(--accent); }
+
+/* ── footer ───────────────────────────────────────────────────── */
+footer {
+  max-width: 880px;
+  margin: 4rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  color: var(--dim);
+  font-size: .85rem;
+}
