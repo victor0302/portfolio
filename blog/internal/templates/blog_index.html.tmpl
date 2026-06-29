@@ -6,6 +6,7 @@
     <ul class="post-list">
       {{range .Posts}}
         <li class="post">
+          {{if .ASCIIArt}}<pre class="ascii-thumb">{{.ASCIIArt}}</pre>{{end}}
           <h2><a href="/blog/{{.Slug}}">{{.Title}}</a></h2>
           <p class="meta">
             <time datetime="{{.CreatedAt.Format "2006-01-02"}}">
