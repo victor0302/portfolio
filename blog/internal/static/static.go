@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-//go:embed *.css
+//go:embed *.css *.js
 var files embed.FS
 
 // FS returns the embedded static asset tree.
