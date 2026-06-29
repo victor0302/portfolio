@@ -34,6 +34,53 @@ func TestWritePostTable(t *testing.T) {
 	}
 }
 
+func TestWritePostDetail(t *testing.T) {
+	created, _ := time.Parse(time.RFC3339, "2026-06-29T10:00:00Z")
+	post := &models.Post{
+		ID: 7, Slug: "x", Title: "X Post", Body: "first\nsecond",
+		ASCIIArt: "##\n##", Summary: "the one-liner",
+		Published: true, CreatedAt: created, UpdatedAt: created,
+	}
+	var buf bytes.Buffer
+	writePostDetail(&buf, post)
+	out := buf.String()
+
+	wants := []string{
+		"id:      7",
+		"slug:    x",
+		"title:   X Post",
+		"status:  published",
+		"summary: the one-liner",
+		"  ##\n  ##",        // ASCII indented
+		"  first\n  second", // body indented
+	}
+	for _, w := range wants {
+		if !strings.Contains(out, w) {
+			t.Errorf("detail output missing %q\nfull output:\n%s", w, out)
+		}
+	}
+}
+
+func TestWritePostDetail_NoneValues(t *testing.T) {
+	var buf bytes.Buffer
+	writePostDetail(&buf, &models.Post{ID: 1, Slug: "x", Title: "X"})
+	out := buf.String()
+	if !strings.Contains(out, "summary: (none)") {
+		t.Errorf("expected 'summary: (none)' placeholder, got:\n%s", out)
+	}
+	if !strings.Contains(out, "ascii:   (none)") {
+		t.Errorf("expected 'ascii:   (none)' placeholder, got:\n%s", out)
+	}
+}
+
+func TestIndent(t *testing.T) {
+	got := indent("a\nb\nc", "  ")
+	want := "  a\n  b\n  c"
+	if got != want {
+		t.Errorf("indent: got %q, want %q", got, want)
+	}
+}
+
 func TestEnvOr(t *testing.T) {
 	if got := envOr("DEFINITELY_NOT_SET_XYZ", "fallback"); got != "fallback" {
 		t.Errorf("envOr default: got %q, want %q", got, "fallback")
