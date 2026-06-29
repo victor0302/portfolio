@@ -4,14 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{.Title}}</title>
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      var sys = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', saved || sys);
+    })();
+  </script>
   <link rel="stylesheet" href="/static/blog.css">
 </head>
 <body>
   <header class="topbar">
     <nav class="page-nav">
-      <a href="/">Home</a>
-      <a href="/blog">Blog</a>
+      <a href="/">home</a>
+      <a href="/blog">blog</a>
     </nav>
+    <div class="spacer"></div>
+    <button class="toggle" id="theme-toggle"><span class="dot"></span><span id="theme-label">light</span></button>
   </header>
   <main>
     {{template "content" .}}
@@ -19,6 +28,7 @@
   <footer>
     <p>&copy; Vic</p>
   </footer>
+  <script src="/static/blog.js"></script>
 </body>
 </html>
 {{end}}

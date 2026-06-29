@@ -33,6 +33,31 @@ func TestHandler_ServesBlogCSS(t *testing.T) {
 	}
 }
 
+func TestHandler_ServesBlogJS(t *testing.T) {
+	srv := httptest.NewServer(http.StripPrefix("/static/", Handler()))
+	t.Cleanup(srv.Close)
+
+	res, err := http.Get(srv.URL + "/static/blog.js")
+	if err != nil {
+		t.Fatalf("GET blog.js: %v", err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		t.Fatalf("status: got %d, want 200", res.StatusCode)
+	}
+	if ct := res.Header.Get("Content-Type"); !strings.HasPrefix(ct, "text/javascript") && !strings.HasPrefix(ct, "application/javascript") {
+		t.Errorf("Content-Type: got %q, want text/javascript or application/javascript", ct)
+	}
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+	if !strings.Contains(string(body), "theme-toggle") {
+		t.Errorf("expected blog.js to wire the theme-toggle button, got: %s", string(body)[:min(200, len(body))])
+	}
+}
+
 func TestHandler_404OnMissingAsset(t *testing.T) {
 	srv := httptest.NewServer(http.StripPrefix("/static/", Handler()))
 	t.Cleanup(srv.Close)
