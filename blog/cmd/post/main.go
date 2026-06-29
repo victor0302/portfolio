@@ -1,18 +1,22 @@
 // post is the admin CLI for the blog. It dispatches to subcommands that
 // each operate on the same SQLite database the blog server reads.
 //
-//	post create   -title T -slug S -file body.md [-ascii ascii.txt] [-publish] [-summarize]
-//	post list     [-all]
-//	post show     <slug>
-//	post edit     <slug> [-title T] [-slug S] [-file body.md] [-ascii ascii.txt] [-summarize]
+//	post create    -title T -slug S -file body.md [-ascii ascii.txt] [-publish] [-summarize]
+//	post list      [-all]
+//	post show      <slug>
+//	post edit      <slug> [-title T] [-slug S] [-file body.md] [-ascii ascii.txt] [-summarize]
+//	post delete    <slug> [-y]
+//	post publish   <slug>
+//	post unpublish <slug>
 //
-// More subcommands (delete, publish/unpublish, import) land in later
-// Phase 5 tickets.
+// Import-from-Markdown lands in ticket 64.
 package main
 
 import (
+	"bufio"
 	"context"
 	"database/sql"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -41,6 +45,12 @@ func main() {
 		cmdShow(os.Args[2:])
 	case "edit":
 		cmdEdit(os.Args[2:])
+	case "delete":
+		cmdDelete(os.Args[2:])
+	case "publish":
+		cmdSetPublished(os.Args[2:], true)
+	case "unpublish":
+		cmdSetPublished(os.Args[2:], false)
 	case "-h", "--help", "help":
 		usage(os.Stdout)
 	default:
@@ -54,10 +64,13 @@ func usage(w *os.File) {
 	fmt.Fprintln(w, `usage: post <subcommand> [flags]
 
 subcommands:
-  create    create a new post from a body file
-  list      list posts (default: published only; -all includes drafts)
-  show      print a single post's fields
-  edit      update a post's title/slug/body/ascii/summary by slug
+  create     create a new post from a body file
+  list       list posts (default: published only; -all includes drafts)
+  show       print a single post's fields
+  edit       update a post's title/slug/body/ascii/summary by slug
+  delete     delete a post by slug (-y skips confirmation)
+  publish    flip a post's published flag to true
+  unpublish  flip a post's published flag to false
 
 run 'post <subcommand> -h' for subcommand flags`)
 }
@@ -318,6 +331,108 @@ func cmdEdit(args []string) {
 		log.Fatalf("update: %v", err)
 	}
 	fmt.Printf("updated post %d (slug=%s)\n", post.ID, post.Slug)
+}
+
+// ── delete ────────────────────────────────────────────────────────────
+
+func cmdDelete(args []string) {
+	fs := flag.NewFlagSet("delete", flag.ExitOnError)
+	dbPath := fs.String("db", envOr("BLOG_DB", "blog.db"), "path to sqlite database")
+	yes := fs.Bool("y", false, "skip the confirmation prompt")
+	fs.Parse(args)
+
+	if fs.NArg() != 1 {
+		fmt.Fprintln(os.Stderr, "delete: <slug> argument is required")
+		fs.Usage()
+		os.Exit(2)
+	}
+	slug := fs.Arg(0)
+
+	d := openDB(*dbPath)
+	defer d.Close()
+
+	post, err := models.GetPostBySlug(d, slug)
+	if errors.Is(err, sql.ErrNoRows) {
+		fmt.Fprintf(os.Stderr, "delete: no post with slug %q\n", slug)
+		os.Exit(1)
+	}
+	if err != nil {
+		log.Fatalf("delete: %v", err)
+	}
+
+	if !*yes {
+		ok, err := confirm(os.Stdin, os.Stdout, fmt.Sprintf("delete post %d %q? [y/N] ", post.ID, post.Title))
+		if err != nil {
+			log.Fatalf("confirm: %v", err)
+		}
+		if !ok {
+			fmt.Println("aborted")
+			return
+		}
+	}
+
+	if err := models.DeletePost(d, post.ID); err != nil {
+		log.Fatalf("delete: %v", err)
+	}
+	fmt.Printf("deleted post %d (slug=%s)\n", post.ID, post.Slug)
+}
+
+// confirm prints prompt to out, reads one line from in, returns true on
+// "y" or "yes" (case-insensitive). Anything else is no.
+func confirm(in io.Reader, out io.Writer, prompt string) (bool, error) {
+	if _, err := fmt.Fprint(out, prompt); err != nil {
+		return false, err
+	}
+	scanner := bufio.NewScanner(in)
+	if !scanner.Scan() {
+		if err := scanner.Err(); err != nil {
+			return false, err
+		}
+		return false, nil
+	}
+	answer := strings.ToLower(strings.TrimSpace(scanner.Text()))
+	return answer == "y" || answer == "yes", nil
+}
+
+// ── publish / unpublish ───────────────────────────────────────────────
+
+func cmdSetPublished(args []string, want bool) {
+	verb := "publish"
+	if !want {
+		verb = "unpublish"
+	}
+	fs := flag.NewFlagSet(verb, flag.ExitOnError)
+	dbPath := fs.String("db", envOr("BLOG_DB", "blog.db"), "path to sqlite database")
+	fs.Parse(args)
+
+	if fs.NArg() != 1 {
+		fmt.Fprintf(os.Stderr, "%s: <slug> argument is required\n", verb)
+		fs.Usage()
+		os.Exit(2)
+	}
+	slug := fs.Arg(0)
+
+	d := openDB(*dbPath)
+	defer d.Close()
+
+	post, err := models.GetPostBySlug(d, slug)
+	if errors.Is(err, sql.ErrNoRows) {
+		fmt.Fprintf(os.Stderr, "%s: no post with slug %q\n", verb, slug)
+		os.Exit(1)
+	}
+	if err != nil {
+		log.Fatalf("%s: %v", verb, err)
+	}
+
+	if post.Published == want {
+		fmt.Printf("post %d (slug=%s) is already %sed\n", post.ID, post.Slug, verb)
+		return
+	}
+	post.Published = want
+	if err := models.UpdatePost(d, *post); err != nil {
+		log.Fatalf("%s: %v", verb, err)
+	}
+	fmt.Printf("%sed post %d (slug=%s)\n", verb, post.ID, post.Slug)
 }
 
 // writePostTable writes a tab-aligned id/slug/title/status/date table to w.
