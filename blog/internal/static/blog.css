@@ -54,6 +54,13 @@ body {
 
 main { max-width: 880px; margin: 0 auto; }
 
+/* ── terminal prompt row (matches landing) ────────────────────── */
+.prompt-row {
+  color: var(--dim); font-size: .85rem; margin: 0 0 .75rem;
+}
+.prompt-row .g { color: var(--green); }
+.prompt-row .b { color: var(--accent); }
+
 /* ── blog index ───────────────────────────────────────────────── */
 .blog-index h1 {
   font-size: clamp(2rem, 5vw, 2.4rem);
