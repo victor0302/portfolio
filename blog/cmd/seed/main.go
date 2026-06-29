@@ -40,12 +40,17 @@ A few things I'd like to use this for:
 	{
 		Title: "Why I built this",
 		Slug:  "why-i-built-this",
-		ASCIIArt: ` ┌─────────┐
- │  WHY ?  │
- │  ─────  │
- │  GO +   │
- │  SQLITE │
- └─────────┘`,
+		ASCIIArt: `          ,_---~~~~~----._
+  _,,_,*^____      _____` + "``" + `*g*\"*,
+ / __/ /'     ^.  /      \ ^@q   f
+[  @f | @))    |  | @))   l  0 _/
+ ` + "`" + `/   \~____ / __ \_____/    \
+  |           _l__l_           I
+  }          [______]           I
+  ]            | | |            |
+  ]             ~ ~             |
+  |                            |
+   |                           |`,
 		Body: `A short note on why a hand-rolled Go + SQLite blog made sense for me.
 
 ## The constraints

@@ -88,7 +88,7 @@ main { max-width: 880px; margin: 0 auto; }
   font-size: .7rem;
   line-height: 1.1;
   white-space: pre;
-  overflow-x: auto;
+  overflow-x: hidden;
   opacity: .85;
 }
 .post-list .post h2 {
@@ -141,7 +141,7 @@ article.post .fastfetch .ff-art {
   line-height: 1.1;
   margin: 0;
   white-space: pre;
-  overflow-x: auto;
+  overflow-x: hidden;
   opacity: .9;
 }
 article.post .fastfetch .ff-meta {
