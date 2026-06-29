@@ -82,6 +82,15 @@ main { max-width: 880px; margin: 0 auto; }
   border-color: var(--accent);
   transform: translateY(-2px);
 }
+.post-list .ascii-thumb {
+  margin: 0 0 .75rem;
+  color: var(--accent);
+  font-size: .7rem;
+  line-height: 1.1;
+  white-space: pre;
+  overflow-x: auto;
+  opacity: .85;
+}
 .post-list .post h2 {
   margin: 0 0 .35rem;
   font-size: 1rem; font-weight: 600;

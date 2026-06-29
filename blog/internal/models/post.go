@@ -11,6 +11,7 @@ type Post struct {
 	Title     string
 	Slug      string
 	Body      string
+	ASCIIArt  string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Published bool
@@ -19,7 +20,7 @@ type Post struct {
 // GetAllPosts returns posts ordered by created_at DESC.
 // If publishedOnly is true, only published posts are returned.
 func GetAllPosts(db *sql.DB, publishedOnly bool) ([]Post, error) {
-	query := `SELECT id, title, slug, body, created_at, updated_at, published FROM posts`
+	query := `SELECT id, title, slug, body, ascii_art, created_at, updated_at, published FROM posts`
 	if publishedOnly {
 		query += ` WHERE published = 1`
 	}
@@ -34,7 +35,7 @@ func GetAllPosts(db *sql.DB, publishedOnly bool) ([]Post, error) {
 	var posts []Post
 	for rows.Next() {
 		var p Post
-		if err := rows.Scan(&p.ID, &p.Title, &p.Slug, &p.Body, &p.CreatedAt, &p.UpdatedAt, &p.Published); err != nil {
+		if err := rows.Scan(&p.ID, &p.Title, &p.Slug, &p.Body, &p.ASCIIArt, &p.CreatedAt, &p.UpdatedAt, &p.Published); err != nil {
 			return nil, fmt.Errorf("scan post: %w", err)
 		}
 		posts = append(posts, p)
@@ -47,11 +48,11 @@ func GetAllPosts(db *sql.DB, publishedOnly bool) ([]Post, error) {
 
 // GetPostBySlug returns the post matching slug. Returns sql.ErrNoRows if not found.
 func GetPostBySlug(db *sql.DB, slug string) (*Post, error) {
-	const q = `SELECT id, title, slug, body, created_at, updated_at, published
+	const q = `SELECT id, title, slug, body, ascii_art, created_at, updated_at, published
 	           FROM posts WHERE slug = ?`
 	var p Post
 	if err := db.QueryRow(q, slug).Scan(
-		&p.ID, &p.Title, &p.Slug, &p.Body, &p.CreatedAt, &p.UpdatedAt, &p.Published,
+		&p.ID, &p.Title, &p.Slug, &p.Body, &p.ASCIIArt, &p.CreatedAt, &p.UpdatedAt, &p.Published,
 	); err != nil {
 		return nil, err
 	}
@@ -61,8 +62,8 @@ func GetPostBySlug(db *sql.DB, slug string) (*Post, error) {
 // CreatePost inserts p and returns the assigned id. created_at and updated_at
 // are filled in by the DB default (CURRENT_TIMESTAMP).
 func CreatePost(db *sql.DB, p Post) (int64, error) {
-	const q = `INSERT INTO posts (title, slug, body, published) VALUES (?, ?, ?, ?)`
-	res, err := db.Exec(q, p.Title, p.Slug, p.Body, p.Published)
+	const q = `INSERT INTO posts (title, slug, body, ascii_art, published) VALUES (?, ?, ?, ?, ?)`
+	res, err := db.Exec(q, p.Title, p.Slug, p.Body, p.ASCIIArt, p.Published)
 	if err != nil {
 		return 0, fmt.Errorf("insert post: %w", err)
 	}
@@ -73,9 +74,9 @@ func CreatePost(db *sql.DB, p Post) (int64, error) {
 // Returns sql.ErrNoRows if no row matches p.ID.
 func UpdatePost(db *sql.DB, p Post) error {
 	const q = `UPDATE posts
-	           SET title = ?, slug = ?, body = ?, published = ?, updated_at = CURRENT_TIMESTAMP
+	           SET title = ?, slug = ?, body = ?, ascii_art = ?, published = ?, updated_at = CURRENT_TIMESTAMP
 	           WHERE id = ?`
-	res, err := db.Exec(q, p.Title, p.Slug, p.Body, p.Published, p.ID)
+	res, err := db.Exec(q, p.Title, p.Slug, p.Body, p.ASCIIArt, p.Published, p.ID)
 	if err != nil {
 		return fmt.Errorf("update post: %w", err)
 	}

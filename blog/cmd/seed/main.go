@@ -19,6 +19,10 @@ var seedPosts = []models.Post{
 	{
 		Title: "Hello, world",
 		Slug:  "hello-world",
+		ASCIIArt: `   __  __     __ __
+  / / / /__  / // /__
+ / /_/ / -_)/ // / _ \
+ \____/\__//_//_/\___/`,
 		Body: `First post on the new **blog backend**. Written in Go, served from SQLite.
 
 A few things I'd like to use this for:
@@ -32,6 +36,12 @@ A few things I'd like to use this for:
 	{
 		Title: "Why I built this",
 		Slug:  "why-i-built-this",
+		ASCIIArt: ` ┌─────────┐
+ │  WHY ?  │
+ │  ─────  │
+ │  GO +   │
+ │  SQLITE │
+ └─────────┘`,
 		Body: `A short note on why a hand-rolled Go + SQLite blog made sense for me.
 
 ## The constraints
@@ -51,6 +61,12 @@ I wanted something I could:
 	{
 		Title: "Draft: roadmap",
 		Slug:  "draft-roadmap",
+		ASCIIArt: ` ▓▓▓▓▓▓▓▓▓
+ ▓ TODO  ▓
+ ▓▓▓▓▓▓▓▓▓
+   [ ] tags
+   [ ] rss
+   [ ] admin ui`,
 		Body: `Things I want to ship next:
 
 - Tags + filtering

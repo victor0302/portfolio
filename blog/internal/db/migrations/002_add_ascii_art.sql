@@ -1,0 +1,1 @@
+ALTER TABLE posts ADD COLUMN ascii_art TEXT NOT NULL DEFAULT '';

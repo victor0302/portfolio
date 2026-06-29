@@ -59,6 +59,45 @@ func TestBlogIndex_ShowsPublishedHidesDrafts(t *testing.T) {
 	}
 }
 
+func TestBlogIndex_RendersASCIIArt(t *testing.T) {
+	d := newTestDB(t)
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "With Art", Slug: "with-art", Body: "body",
+		ASCIIArt: "  /\\_/\\\n ( o.o )", Published: true,
+	}); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog", nil)
+	rec := httptest.NewRecorder()
+	BlogIndex(d)(rec, req)
+
+	body := rec.Body.String()
+	if !strings.Contains(body, `class="ascii-thumb"`) {
+		t.Errorf("expected ascii-thumb <pre> wrapper, got: %s", body)
+	}
+	if !strings.Contains(body, "( o.o )") {
+		t.Errorf("expected ascii content in body, got: %s", body)
+	}
+}
+
+func TestBlogIndex_OmitsEmptyASCII(t *testing.T) {
+	d := newTestDB(t)
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "No Art", Slug: "no-art", Body: "body", Published: true,
+	}); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog", nil)
+	rec := httptest.NewRecorder()
+	BlogIndex(d)(rec, req)
+
+	if strings.Contains(rec.Body.String(), `class="ascii-thumb"`) {
+		t.Errorf("ascii-thumb wrapper should be omitted when ASCIIArt is empty")
+	}
+}
+
 func TestBlogIndex_EmptyState(t *testing.T) {
 	d := newTestDB(t)
 
