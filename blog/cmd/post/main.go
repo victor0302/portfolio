@@ -3,9 +3,11 @@
 //
 //	post create   -title T -slug S -file body.md [-ascii ascii.txt] [-publish] [-summarize]
 //	post list     [-all]
+//	post show     <slug>
+//	post edit     <slug> [-title T] [-slug S] [-file body.md] [-ascii ascii.txt] [-summarize]
 //
-// More subcommands (show, edit, delete, publish/unpublish, import) land in
-// later Phase 5 tickets.
+// More subcommands (delete, publish/unpublish, import) land in later
+// Phase 5 tickets.
 package main
 
 import (
@@ -35,6 +37,10 @@ func main() {
 		cmdCreate(os.Args[2:])
 	case "list":
 		cmdList(os.Args[2:])
+	case "show":
+		cmdShow(os.Args[2:])
+	case "edit":
+		cmdEdit(os.Args[2:])
 	case "-h", "--help", "help":
 		usage(os.Stdout)
 	default:
@@ -50,6 +56,8 @@ func usage(w *os.File) {
 subcommands:
   create    create a new post from a body file
   list      list posts (default: published only; -all includes drafts)
+  show      print a single post's fields
+  edit      update a post's title/slug/body/ascii/summary by slug
 
 run 'post <subcommand> -h' for subcommand flags`)
 }
@@ -170,6 +178,146 @@ func cmdList(args []string) {
 	if len(posts) == 0 {
 		fmt.Fprintln(os.Stdout, "(no posts)")
 	}
+}
+
+// ── show ──────────────────────────────────────────────────────────────
+
+func cmdShow(args []string) {
+	fs := flag.NewFlagSet("show", flag.ExitOnError)
+	dbPath := fs.String("db", envOr("BLOG_DB", "blog.db"), "path to sqlite database")
+	fs.Parse(args)
+
+	if fs.NArg() != 1 {
+		fmt.Fprintln(os.Stderr, "show: <slug> argument is required")
+		fs.Usage()
+		os.Exit(2)
+	}
+	slug := fs.Arg(0)
+
+	d := openDB(*dbPath)
+	defer d.Close()
+
+	post, err := models.GetPostBySlug(d, slug)
+	if err == sql.ErrNoRows {
+		fmt.Fprintf(os.Stderr, "show: no post with slug %q\n", slug)
+		os.Exit(1)
+	}
+	if err != nil {
+		log.Fatalf("show: %v", err)
+	}
+	writePostDetail(os.Stdout, post)
+}
+
+// writePostDetail prints every field of post in a human-readable block.
+func writePostDetail(w io.Writer, p *models.Post) {
+	status := "draft"
+	if p.Published {
+		status = "published"
+	}
+	fmt.Fprintf(w, "id:      %d\n", p.ID)
+	fmt.Fprintf(w, "slug:    %s\n", p.Slug)
+	fmt.Fprintf(w, "title:   %s\n", p.Title)
+	fmt.Fprintf(w, "status:  %s\n", status)
+	fmt.Fprintf(w, "created: %s\n", p.CreatedAt.Format(time.RFC3339))
+	fmt.Fprintf(w, "updated: %s\n", p.UpdatedAt.Format(time.RFC3339))
+	if p.Summary == "" {
+		fmt.Fprintln(w, "summary: (none)")
+	} else {
+		fmt.Fprintf(w, "summary: %s\n", p.Summary)
+	}
+	if p.ASCIIArt == "" {
+		fmt.Fprintln(w, "ascii:   (none)")
+	} else {
+		fmt.Fprintln(w, "ascii:")
+		fmt.Fprintln(w, indent(p.ASCIIArt, "  "))
+	}
+	fmt.Fprintln(w, "body:")
+	fmt.Fprintln(w, indent(p.Body, "  "))
+}
+
+func indent(s, prefix string) string {
+	lines := strings.Split(s, "\n")
+	for i, l := range lines {
+		lines[i] = prefix + l
+	}
+	return strings.Join(lines, "\n")
+}
+
+// ── edit ──────────────────────────────────────────────────────────────
+
+func cmdEdit(args []string) {
+	fs := flag.NewFlagSet("edit", flag.ExitOnError)
+	dbPath := fs.String("db", envOr("BLOG_DB", "blog.db"), "path to sqlite database")
+	title := fs.String("title", "", "new title")
+	slug := fs.String("slug", "", "new slug")
+	file := fs.String("file", "", "path to new markdown body file")
+	ascii := fs.String("ascii", "", "path to new ASCII art file")
+	doSummarize := fs.Bool("summarize", false, "regenerate summary via Anthropic API")
+	fs.Parse(args)
+
+	if fs.NArg() != 1 {
+		fmt.Fprintln(os.Stderr, "edit: <slug> argument is required")
+		fs.Usage()
+		os.Exit(2)
+	}
+	currentSlug := fs.Arg(0)
+
+	d := openDB(*dbPath)
+	defer d.Close()
+
+	post, err := models.GetPostBySlug(d, currentSlug)
+	if err == sql.ErrNoRows {
+		fmt.Fprintf(os.Stderr, "edit: no post with slug %q\n", currentSlug)
+		os.Exit(1)
+	}
+	if err != nil {
+		log.Fatalf("edit: %v", err)
+	}
+
+	changed := false
+	fs.Visit(func(f *flag.Flag) {
+		switch f.Name {
+		case "title":
+			post.Title = *title
+			changed = true
+		case "slug":
+			post.Slug = *slug
+			changed = true
+		case "file":
+			b, err := os.ReadFile(*file)
+			if err != nil {
+				log.Fatalf("read body file %q: %v", *file, err)
+			}
+			post.Body = string(b)
+			changed = true
+		case "ascii":
+			b, err := os.ReadFile(*ascii)
+			if err != nil {
+				log.Fatalf("read ascii file %q: %v", *ascii, err)
+			}
+			post.ASCIIArt = strings.TrimRight(string(b), "\n")
+			changed = true
+		}
+	})
+
+	if *doSummarize {
+		s, err := summarize(post.Body)
+		if err != nil {
+			log.Fatalf("summarize: %v", err)
+		}
+		post.Summary = s
+		changed = true
+	}
+
+	if !changed {
+		fmt.Fprintln(os.Stderr, "edit: no fields to update (pass at least one of -title -slug -file -ascii -summarize)")
+		os.Exit(2)
+	}
+
+	if err := models.UpdatePost(d, *post); err != nil {
+		log.Fatalf("update: %v", err)
+	}
+	fmt.Printf("updated post %d (slug=%s)\n", post.ID, post.Slug)
 }
 
 // writePostTable writes a tab-aligned id/slug/title/status/date table to w.
