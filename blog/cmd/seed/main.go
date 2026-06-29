@@ -6,13 +6,17 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"flag"
 	"log"
+	"os"
+	"time"
 
 	"github.com/victor0302/portfolio/blog/internal/db"
 	"github.com/victor0302/portfolio/blog/internal/models"
+	"github.com/victor0302/portfolio/blog/internal/summary"
 )
 
 var seedPosts = []models.Post{
@@ -91,7 +95,13 @@ func main() {
 		log.Fatalf("apply schema: %v", err)
 	}
 
-	inserted, skipped := 0, 0
+	sumClient := &summary.Client{APIKey: os.Getenv("ANTHROPIC_API_KEY")}
+	summaryOn := sumClient.APIKey != ""
+	if !summaryOn {
+		log.Printf("ANTHROPIC_API_KEY not set — skipping summary generation")
+	}
+
+	inserted, skipped, summarized := 0, 0, 0
 	for _, p := range seedPosts {
 		if _, err := models.GetPostBySlug(d, p.Slug); err == nil {
 			skipped++
@@ -99,11 +109,22 @@ func main() {
 		} else if !errors.Is(err, sql.ErrNoRows) {
 			log.Fatalf("lookup %q: %v", p.Slug, err)
 		}
+		if summaryOn {
+			ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+			s, err := sumClient.Generate(ctx, p.Body)
+			cancel()
+			if err != nil {
+				log.Printf("summary %q: %v (continuing without)", p.Slug, err)
+			} else {
+				p.Summary = s
+				summarized++
+			}
+		}
 		if _, err := models.CreatePost(d, p); err != nil {
 			log.Fatalf("insert %q: %v", p.Slug, err)
 		}
 		inserted++
 	}
 
-	log.Printf("seed complete: db=%s inserted=%d skipped=%d", *path, inserted, skipped)
+	log.Printf("seed complete: db=%s inserted=%d skipped=%d summarized=%d", *path, inserted, skipped, summarized)
 }

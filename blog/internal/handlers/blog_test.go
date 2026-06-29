@@ -24,6 +24,55 @@ func newTestDB(t *testing.T) *sql.DB {
 	return d
 }
 
+func TestBlogIndex_PrefersSummaryOverExcerpt(t *testing.T) {
+	d := newTestDB(t)
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "Post With Summary", Slug: "has-summary",
+		Body: "the actual body text that would be excerpted by fallback",
+		Summary: "an ai-written one-liner",
+		Published: true,
+	}); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog", nil)
+	rec := httptest.NewRecorder()
+	BlogIndex(d)(rec, req)
+
+	body := rec.Body.String()
+	if !strings.Contains(body, "an ai-written one-liner") {
+		t.Errorf("expected summary in output, got: %s", body)
+	}
+	if strings.Contains(body, "the actual body text that would be excerpted") {
+		t.Errorf("excerpt should not appear when Summary is set, got: %s", body)
+	}
+	if !strings.Contains(body, `class="summary"`) {
+		t.Errorf("expected .summary class wrapper, got: %s", body)
+	}
+}
+
+func TestBlogIndex_FallsBackToExcerpt(t *testing.T) {
+	d := newTestDB(t)
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "No Summary", Slug: "no-summary", Body: "fallback body content",
+		Published: true,
+	}); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog", nil)
+	rec := httptest.NewRecorder()
+	BlogIndex(d)(rec, req)
+
+	body := rec.Body.String()
+	if !strings.Contains(body, "fallback body content") {
+		t.Errorf("expected excerpt fallback when Summary empty, got: %s", body)
+	}
+	if !strings.Contains(body, `class="excerpt"`) {
+		t.Errorf("expected .excerpt class wrapper, got: %s", body)
+	}
+}
+
 func TestBlogIndex_ShowsPublishedHidesDrafts(t *testing.T) {
 	d := newTestDB(t)
 	if _, err := models.CreatePost(d, models.Post{
