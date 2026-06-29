@@ -15,6 +15,11 @@ func TestToHTML(t *testing.T) {
 		{"paragraph + bold", "Hello **world**", []string{"<p>", "<strong>world</strong>"}},
 		{"list", "- one\n- two\n", []string{"<ul>", "<li>one</li>", "<li>two</li>"}},
 		{"link", "[gh](https://github.com)", []string{`<a href="https://github.com">gh</a>`}},
+		{"fenced go code highlights", "```go\nfunc main() {}\n```", []string{
+			`<pre`,
+			`class="chroma"`,
+			`<span class="kd">func</span>`, // 'func' is a keyword-declaration
+		}},
 	}
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {

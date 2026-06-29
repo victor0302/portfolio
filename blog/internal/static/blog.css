@@ -173,6 +173,58 @@ article.post .body pre {
 article.post .body pre code {
   background: none; border: none; padding: 0;
 }
+
+/* Syntax highlighting (chroma classes — see internal/markdown). */
+article.post .body .chroma .k,    /* keyword */
+article.post .body .chroma .kc,   /* keyword: constant */
+article.post .body .chroma .kd,   /* keyword: declaration */
+article.post .body .chroma .kn,   /* keyword: namespace */
+article.post .body .chroma .kp,   /* keyword: pseudo */
+article.post .body .chroma .kr,   /* keyword: reserved */
+article.post .body .chroma .kt {  /* keyword: type */
+  color: var(--accent);
+}
+article.post .body .chroma .s,    /* string */
+article.post .body .chroma .s1,
+article.post .body .chroma .s2,
+article.post .body .chroma .sb,
+article.post .body .chroma .sc,
+article.post .body .chroma .sd,
+article.post .body .chroma .se,
+article.post .body .chroma .sh,
+article.post .body .chroma .si,
+article.post .body .chroma .sx,
+article.post .body .chroma .sr {
+  color: var(--green);
+}
+article.post .body .chroma .c,    /* comment */
+article.post .body .chroma .c1,
+article.post .body .chroma .cm,
+article.post .body .chroma .ch,
+article.post .body .chroma .cp,
+article.post .body .chroma .cs {
+  color: var(--dim);
+  font-style: italic;
+}
+article.post .body .chroma .m,    /* number */
+article.post .body .chroma .mb,
+article.post .body .chroma .mf,
+article.post .body .chroma .mh,
+article.post .body .chroma .mi,
+article.post .body .chroma .il,
+article.post .body .chroma .mo {
+  color: var(--accent);
+  opacity: .8;
+}
+article.post .body .chroma .nf,   /* name: function */
+article.post .body .chroma .nc {  /* name: class */
+  color: var(--fg);
+  font-weight: 600;
+}
+article.post .body .chroma .nb {  /* name: builtin */
+  color: var(--accent);
+  opacity: .9;
+}
 article.post .body blockquote {
   margin: 0 0 1rem;
   padding: .5rem 1rem;
