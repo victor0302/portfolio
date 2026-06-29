@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"errors"
+	"strings"
 	"testing"
 
 	"github.com/victor0302/portfolio/blog/internal/db"
@@ -176,6 +177,28 @@ func TestDeletePost(t *testing.T) {
 	}
 	if _, err := GetPostBySlug(d, "hello"); !errors.Is(err, sql.ErrNoRows) {
 		t.Fatalf("want sql.ErrNoRows after delete, got %v", err)
+	}
+}
+
+func TestReadingTime(t *testing.T) {
+	cases := []struct {
+		name string
+		body string
+		want int
+	}{
+		{"empty body", "", 1},
+		{"few words", "hi there", 1},
+		{"200 words", strings.Repeat("word ", 200), 1},
+		{"201 words", strings.Repeat("word ", 201), 2},
+		{"400 words", strings.Repeat("word ", 400), 2},
+		{"401 words", strings.Repeat("word ", 401), 3},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if got := (Post{Body: c.body}).ReadingTime(); got != c.want {
+				t.Errorf("ReadingTime for %q = %d, want %d", c.name, got, c.want)
+			}
+		})
 	}
 }
 

@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -15,6 +16,18 @@ type Post struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Published bool
+}
+
+// ReadingTime estimates minutes to read p.Body at 200 wpm. Returns at
+// least 1 so the meta line never reads "0 min".
+func (p Post) ReadingTime() int {
+	words := len(strings.Fields(p.Body))
+	const wpm = 200
+	mins := (words + wpm - 1) / wpm
+	if mins < 1 {
+		return 1
+	}
+	return mins
 }
 
 // GetAllPosts returns posts ordered by created_at DESC.
