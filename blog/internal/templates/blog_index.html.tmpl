@@ -13,7 +13,11 @@
               {{.CreatedAt.Format "Jan 2, 2006"}}
             </time>
           </p>
-          <p class="excerpt">{{.Excerpt}}</p>
+          {{if .Summary}}
+            <p class="summary">{{.Summary}}</p>
+          {{else}}
+            <p class="excerpt">{{.Excerpt}}</p>
+          {{end}}
         </li>
       {{end}}
     </ul>

@@ -20,6 +20,7 @@ type blogIndexEntry struct {
 	CreatedAt time.Time
 	Excerpt   string
 	ASCIIArt  string
+	Summary   string
 }
 
 type blogIndexData struct {
@@ -44,6 +45,7 @@ func BlogIndex(db *sql.DB) http.HandlerFunc {
 				CreatedAt: p.CreatedAt,
 				Excerpt:   excerpt(p.Body, 160),
 				ASCIIArt:  p.ASCIIArt,
+				Summary:   p.Summary,
 			}
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
