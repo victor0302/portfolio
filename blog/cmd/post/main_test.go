@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"io"
 	"strings"
 	"testing"
 	"time"
@@ -78,6 +79,33 @@ func TestIndent(t *testing.T) {
 	want := "  a\n  b\n  c"
 	if got != want {
 		t.Errorf("indent: got %q, want %q", got, want)
+	}
+}
+
+func TestConfirm(t *testing.T) {
+	cases := []struct {
+		in   string
+		want bool
+	}{
+		{"y\n", true},
+		{"Y\n", true},
+		{"yes\n", true},
+		{"YES\n", true},
+		{"n\n", false},
+		{"no\n", false},
+		{"\n", false},
+		{"anything\n", false},
+		{"yep\n", false},
+	}
+	for _, c := range cases {
+		got, err := confirm(strings.NewReader(c.in), io.Discard, "")
+		if err != nil {
+			t.Errorf("confirm(%q): err %v", c.in, err)
+			continue
+		}
+		if got != c.want {
+			t.Errorf("confirm(%q) = %v, want %v", c.in, got, c.want)
+		}
 	}
 }
 
