@@ -8,8 +8,7 @@
 //	post delete    <slug> [-y]
 //	post publish   <slug>
 //	post unpublish <slug>
-//
-// Import-from-Markdown lands in ticket 64.
+//	post import    <file.md> [-summarize]
 package main
 
 import (
@@ -51,6 +50,8 @@ func main() {
 		cmdSetPublished(os.Args[2:], true)
 	case "unpublish":
 		cmdSetPublished(os.Args[2:], false)
+	case "import":
+		cmdImport(os.Args[2:])
 	case "-h", "--help", "help":
 		usage(os.Stdout)
 	default:
@@ -71,6 +72,7 @@ subcommands:
   delete     delete a post by slug (-y skips confirmation)
   publish    flip a post's published flag to true
   unpublish  flip a post's published flag to false
+  import     import a post from a Markdown file with YAML frontmatter
 
 run 'post <subcommand> -h' for subcommand flags`)
 }
@@ -433,6 +435,56 @@ func cmdSetPublished(args []string, want bool) {
 		log.Fatalf("%s: %v", verb, err)
 	}
 	fmt.Printf("%sed post %d (slug=%s)\n", verb, post.ID, post.Slug)
+}
+
+// ── import ────────────────────────────────────────────────────────────
+
+func cmdImport(args []string) {
+	fs := flag.NewFlagSet("import", flag.ExitOnError)
+	dbPath := fs.String("db", envOr("BLOG_DB", "blog.db"), "path to sqlite database")
+	doSummarize := fs.Bool("summarize", false, "generate summary via Anthropic API")
+	fs.Parse(args)
+
+	if fs.NArg() != 1 {
+		fmt.Fprintln(os.Stderr, "import: <file.md> argument is required")
+		fs.Usage()
+		os.Exit(2)
+	}
+	path := fs.Arg(0)
+
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		log.Fatalf("read %q: %v", path, err)
+	}
+	fm, body, err := parsePost(string(raw))
+	if err != nil {
+		log.Fatalf("parse %q: %v", path, err)
+	}
+
+	p := models.Post{
+		Title:     fm.Title,
+		Slug:      fm.Slug,
+		Body:      body,
+		ASCIIArt:  fm.ASCIIArt,
+		Published: fm.Published,
+	}
+
+	if *doSummarize {
+		s, err := summarize(p.Body)
+		if err != nil {
+			log.Fatalf("summarize: %v", err)
+		}
+		p.Summary = s
+	}
+
+	d := openDB(*dbPath)
+	defer d.Close()
+
+	id, err := models.CreatePost(d, p)
+	if err != nil {
+		log.Fatalf("import: %v", err)
+	}
+	fmt.Printf("imported post %d (%s)\n", id, describeFrontmatter(fm))
 }
 
 // writePostTable writes a tab-aligned id/slug/title/status/date table to w.
