@@ -1,6 +1,7 @@
 {{define "content"}}
 <article class="post">
   <header>
+    <p class="prompt-row"><span class="g">vic@home</span>:<span class="b">~/blog</span>$ cat {{.Post.Slug}}.md</p>
     <h1>{{.Post.Title}}</h1>
     <p class="meta">
       <time datetime="{{.Post.CreatedAt.Format "2006-01-02"}}">
