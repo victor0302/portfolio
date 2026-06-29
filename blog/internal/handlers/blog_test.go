@@ -190,6 +190,63 @@ func TestBlogPost_RendersExistingPost(t *testing.T) {
 	}
 }
 
+func TestBlogPost_FastfetchHeader(t *testing.T) {
+	d := newTestDB(t)
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "Headered", Slug: "headered", Body: "x",
+		ASCIIArt: "##\n##", Published: true,
+	}); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog/headered", nil)
+	req.SetPathValue("slug", "headered")
+	rec := httptest.NewRecorder()
+	BlogPost(d)(rec, req)
+
+	body := rec.Body.String()
+	wants := []string{
+		`class="fastfetch"`,    // header wrapper
+		`class="ff-grid"`,      // grid layout
+		`class="ff-art"`,       // ASCII column
+		`class="ff-meta"`,      // metadata column
+		`class="ff-row"`,       // row inside dl
+		"<dt>file</dt>",        // metadata rows render
+		"<dt>date</dt>",
+		"<dt>read</dt>",
+	}
+	for _, w := range wants {
+		if !strings.Contains(body, w) {
+			t.Errorf("missing %q in rendered post:\n%s", w, body)
+		}
+	}
+	if strings.Contains(body, "<dt>status</dt>") {
+		t.Errorf("published post should not show status row")
+	}
+}
+
+func TestBlogPost_FastfetchHeader_DraftShowsStatus(t *testing.T) {
+	d := newTestDB(t)
+	if _, err := models.CreatePost(d, models.Post{
+		Title: "Draft", Slug: "draft", Body: "x", Published: false,
+	}); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/blog/draft", nil)
+	req.SetPathValue("slug", "draft")
+	rec := httptest.NewRecorder()
+	BlogPost(d)(rec, req)
+
+	body := rec.Body.String()
+	if !strings.Contains(body, "<dt>status</dt>") {
+		t.Errorf("draft post should show status row, got: %s", body)
+	}
+	if !strings.Contains(body, `class="ff-draft"`) {
+		t.Errorf("expected ff-draft styling on draft status")
+	}
+}
+
 func TestBlogPost_RendersMarkdownBody(t *testing.T) {
 	d := newTestDB(t)
 	body := "Hello **world**\n\n- one\n- two\n"

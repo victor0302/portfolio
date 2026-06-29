@@ -1,14 +1,37 @@
 {{define "content"}}
 <article class="post">
-  <header>
+  <header class="fastfetch">
     <p class="prompt-row"><span class="g">vic@home</span>:<span class="b">~/blog</span>$ cat {{.Post.Slug}}.md</p>
-    <h1>{{.Post.Title}}</h1>
-    <p class="meta">
-      <time datetime="{{.Post.CreatedAt.Format "2006-01-02"}}">
-        {{.Post.CreatedAt.Format "Jan 2, 2006"}}
-      </time>
-      · {{.Post.ReadingTime}} min read
-    </p>
+    <div class="ff-grid">
+      {{if .Post.ASCIIArt}}<pre class="ff-art">{{.Post.ASCIIArt}}</pre>{{end}}
+      <div class="ff-meta">
+        <h1>{{.Post.Title}}</h1>
+        <dl>
+          <div class="ff-row">
+            <dt>file</dt>
+            <dd>{{.Post.Slug}}.md</dd>
+          </div>
+          <div class="ff-row">
+            <dt>date</dt>
+            <dd>
+              <time datetime="{{.Post.CreatedAt.Format "2006-01-02"}}">
+                {{.Post.CreatedAt.Format "Jan 2, 2006"}}
+              </time>
+            </dd>
+          </div>
+          <div class="ff-row">
+            <dt>read</dt>
+            <dd>{{.Post.ReadingTime}} min</dd>
+          </div>
+          {{if not .Post.Published}}
+          <div class="ff-row">
+            <dt>status</dt>
+            <dd class="ff-draft">draft</dd>
+          </div>
+          {{end}}
+        </dl>
+      </div>
+    </div>
   </header>
   <div class="body">
     {{.BodyHTML}}
