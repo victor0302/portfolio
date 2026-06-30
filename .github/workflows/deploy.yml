@@ -58,17 +58,14 @@ jobs:
           go build -trimpath -ldflags="-s -w" -o ../dist/blog ./cmd/server
           ls -l ../dist/blog
 
-      - name: install SSH key + known_hosts
+      - name: install SSH key
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
 
       # Defend against trailing whitespace / CRLF in SSH_HOST or SSH_USER
       # secrets (a paste in the GH UI can easily slip a newline in). Re-mask
@@ -86,6 +83,19 @@ jobs:
             echo "SSH_HOST=$clean_host"
             echo "SSH_USER=$clean_user"
           } >> "$GITHUB_ENV"
+
+      # Scan the live host key instead of relying on a stored secret.
+      # Tradeoff: vulnerable to active MITM during the first scan, but the
+      # SSH_KNOWN_HOSTS secret was fragile to paste mistakes — this is the
+      # standard CI pattern for personal-scale deploys.
+      - name: scan host key
+        run: |
+          ssh-keyscan -t ed25519 "$SSH_HOST" 2>/dev/null > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          if [ ! -s ~/.ssh/known_hosts ]; then
+            echo "ssh-keyscan returned no keys for $SSH_HOST" >&2
+            exit 1
+          fi
 
       - name: snapshot current binary for rollback
         run: |
