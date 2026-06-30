@@ -1,0 +1,36 @@
+# Replace the existing `vics.codes { ... }` block in /etc/caddy/Caddyfile
+# with this one. Keeps the static-file behaviour and security headers but
+# adds:
+#   - try_files so /experience resolves to /experience.html on disk
+#   - a 301 from /foo.html to /foo so the .html URLs canonicalize away
+#
+# To apply (as the ubuntu admin user, on the EC2 box):
+#   sudo cp /etc/caddy/Caddyfile /etc/caddy/Caddyfile.bak
+#   sudo $EDITOR /etc/caddy/Caddyfile     # replace the vics.codes block
+#   sudo caddy validate --config /etc/caddy/Caddyfile
+#   sudo systemctl reload caddy
+
+vics.codes {
+    root * /var/www/vics-codes
+    encode gzip zstd
+
+    # Canonical clean URLs: 301 /foo.html -> /foo so old links and bookmarks
+    # redirect to the shiny form.
+    @html_request path_regexp html ^/(.+)\.html$
+    redir @html_request /{re.html.1} 301
+
+    # Serve /experience.html when /experience is requested. Tries the path
+    # as-is first (so /styles.css still works), then with .html appended,
+    # then as a directory (for index.html).
+    try_files {path} {path}.html {path}/
+
+    file_server
+
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+        # Remove the default "Server: Caddy" header
+        -Server
+    }
+}
