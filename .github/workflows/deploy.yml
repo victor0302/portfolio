@@ -56,7 +56,9 @@ jobs:
         run: |
           mkdir -p ../dist
           go build -trimpath -ldflags="-s -w" -o ../dist/blog ./cmd/server
-          ls -l ../dist/blog
+          go build -trimpath -ldflags="-s -w" -o ../dist/seed ./cmd/seed
+          go build -trimpath -ldflags="-s -w" -o ../dist/post ./cmd/post
+          ls -l ../dist/
 
       - name: install SSH key
         env:
@@ -106,12 +108,33 @@ jobs:
             fi
           '
 
-      - name: rsync new binary
+      - name: rsync server binary (staged for atomic swap)
         run: |
           rsync -avz --chmod=0755 \
             -e "ssh -o StrictHostKeyChecking=yes" \
             dist/blog \
             "$SSH_USER@$SSH_HOST:/opt/blog/blog.new"
+
+      # seed + post are CLI tools; no running process to swap. Direct
+      # rsync. Used by the admin via `sudo -u deploy /opt/blog/<tool>`.
+      - name: rsync CLI binaries (seed, post)
+        run: |
+          rsync -avz --chmod=0755 \
+            -e "ssh -o StrictHostKeyChecking=yes" \
+            dist/seed dist/post \
+            "$SSH_USER@$SSH_HOST:/opt/blog/"
+
+      # Static landing pages live under /var/www/vics-codes/ (deploy can
+      # write, caddy reads). --delete keeps the remote a perfect mirror of
+      # landing/ in the repo; --chmod ensures caddy can read regardless
+      # of group ownership.
+      - name: rsync landing pages to /var/www/vics-codes/
+        run: |
+          rsync -avz --delete \
+            --chmod=F0644,D0755 \
+            -e "ssh -o StrictHostKeyChecking=yes" \
+            landing/ \
+            "$SSH_USER@$SSH_HOST:/var/www/vics-codes/"
 
       - name: atomic swap + restart + health check
         run: |
