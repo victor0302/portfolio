@@ -1,0 +1,28 @@
+[Unit]
+Description=vics.codes blog (Go)
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+Group=deploy
+WorkingDirectory=/opt/blog
+ExecStart=/opt/blog/blog
+Environment=BLOG_DB=/var/lib/blog/blog.sqlite
+Environment=PORT=8080
+EnvironmentFile=-/etc/blog/env
+Restart=on-failure
+RestartSec=5
+
+# Process hardening — sensible defaults for a single-binary HTTP service.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/blog
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+[Install]
+WantedBy=multi-user.target
