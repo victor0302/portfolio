@@ -70,10 +70,24 @@ jobs:
           printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
-      - name: snapshot current binary for rollback
+      # Defend against trailing whitespace / CRLF in SSH_HOST or SSH_USER
+      # secrets (a paste in the GH UI can easily slip a newline in). Re-mask
+      # the cleaned values so they don't leak into logs.
+      - name: sanitize SSH host/user
         env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
+          RAW_SSH_HOST: ${{ secrets.SSH_HOST }}
+          RAW_SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          clean_host=$(printf '%s' "$RAW_SSH_HOST" | tr -d '[:space:]')
+          clean_user=$(printf '%s' "$RAW_SSH_USER" | tr -d '[:space:]')
+          echo "::add-mask::$clean_host"
+          echo "::add-mask::$clean_user"
+          {
+            echo "SSH_HOST=$clean_host"
+            echo "SSH_USER=$clean_user"
+          } >> "$GITHUB_ENV"
+
+      - name: snapshot current binary for rollback
         run: |
           ssh "$SSH_USER@$SSH_HOST" '
             set -e
@@ -83,9 +97,6 @@ jobs:
           '
 
       - name: rsync new binary
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
         run: |
           rsync -avz --chmod=0755 \
             -e "ssh -o StrictHostKeyChecking=yes" \
@@ -93,9 +104,6 @@ jobs:
             "$SSH_USER@$SSH_HOST:/opt/blog/blog.new"
 
       - name: atomic swap + restart + health check
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
         run: |
           ssh "$SSH_USER@$SSH_HOST" '
             set -e
@@ -121,9 +129,6 @@ jobs:
 
       - name: rollback on failure
         if: failure()
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
         run: |
           ssh "$SSH_USER@$SSH_HOST" '
             set -e
