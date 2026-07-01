@@ -39,6 +39,14 @@ func main() {
 	mux.Handle("GET /blog/{slug}", handlers.BlogPost(sqlDB))
 	mux.Handle("GET /static/", http.StripPrefix("/static/", static.Handler()))
 
+	// Root of the subdomain redirects to /blog. The subdomain exists to
+	// serve the blog, so a bare visit to blog.vics.codes shouldn't 404.
+	// {$} matches only the exact root path so this doesn't shadow other
+	// registered routes.
+	mux.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/blog", http.StatusMovedPermanently)
+	})
+
 	srv := &http.Server{
 		Addr:    addr,
 		Handler: mux,
