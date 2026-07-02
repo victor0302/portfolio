@@ -208,6 +208,27 @@ h3 {
 .exp-bullets li { margin: .25rem 0; }
 .exp-bullets li::marker { color: var(--accent); }
 
+.exp-desc {
+  margin: .5rem 0 0;
+  font-size: .88rem; color: var(--fg);
+  line-height: 1.55;
+}
+.exp-stack {
+  margin: .2rem 0 0;
+  font-size: .78rem; color: var(--dim);
+  letter-spacing: .02em;
+}
+.exp-stack a { color: var(--dim); border-bottom: 1px dashed var(--dim); text-decoration: none; }
+.exp-stack a:hover { color: var(--accent); border-color: var(--accent); }
+.exp-learned {
+  margin: .7rem 0 0;
+  font-size: .82rem; color: var(--dim);
+}
+.exp-learned strong { color: var(--accent); font-weight: 500; }
+@media (min-width: 640px) {
+  .exp-item.proj-item { grid-template-columns: 1fr; }
+}
+
 .cert-list {
   list-style: none; padding: 0; margin: 0;
   display: grid; gap: 0;
@@ -230,7 +251,7 @@ h3 {
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 880px) {
-  .skills-grid { grid-template-columns: repeat(4, 1fr); }
+  .skills-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .skill-col ul {
   list-style: none; padding: 0; margin: 0;
