@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Victor Salazar — experience</title>
-<meta name="description" content="Victor Salazar — experience, programs, research, education, certifications, and skills.">
+<meta name="description" content="Victor Salazar — work, projects, education, certifications, and skills.">
 <script>
   (function() {
     var saved = localStorage.getItem('theme');
@@ -33,34 +33,26 @@
   <header>
     <p class="prompt-row"><span class="g">vic@home</span>:<span class="b">~/experience</span>$ cat history.md</p>
     <h1>Experience<span class="dot-end">.</span></h1>
-    <p class="tagline">programs · research · work · education · skills</p>
+    <p class="tagline">work · projects · education · certifications · skills</p>
   </header>
 
   <section>
-    <h2>experience &amp; programs</h2>
+    <h2>work experience</h2>
     <div class="exp-list">
 
       <div class="exp-item">
-        <div class="exp-when">2026 — present</div>
+        <div class="exp-when">2025 — present</div>
         <div class="exp-body">
-          <div class="exp-title">Full-stack web dev cohort <span class="exp-org">— Code The Dream</span></div>
+          <div class="exp-title">Founder &amp; Technical Lead <span class="exp-org">— OptimalDevs</span></div>
+          <p class="exp-desc">Founded OptimalDevs, a small software development collective focused on building production websites and web applications for local small businesses.</p>
           <ul class="exp-bullets">
-            <li>Just completed the <strong>Intro to Programming</strong> course (10-week curriculum, HTML / CSS / JavaScript fundamentals).</li>
-            <li>Capstone: built and shipped <a href="https://github.com/victor0302/victor-salazar-intro" target="_blank" rel="noopener">victor-salazar-intro</a>, a static portfolio site as the course's final project.</li>
-            <li>Continuing through the rest of the full-stack web dev track — coursework and projects logged in the <a href="https://github.com/victor0302/CTD" target="_blank" rel="noopener">CTD</a> repo.</li>
+            <li>Founded a four-person development collective delivering AWS-hosted full-stack web applications through a zero-cost partnership model.</li>
+            <li>Built and led a cross-functional team across frontend development, cloud infrastructure, DevOps, and security.</li>
+            <li>Mentored developers in React, JavaScript, AWS deployment, GitHub workflows, and production release practices.</li>
+            <li>Established a GitHub-based workflow using issues, Kanban planning, feature branches, pull requests, and CI checks.</li>
+            <li>Led technical planning, deployment decisions, release coordination, and project direction for the agency website and future client projects.</li>
           </ul>
-        </div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-when">2026 — present</div>
-        <div class="exp-body">
-          <div class="exp-title">Personal portfolio + blog <span class="exp-org">— self-directed, full-stack</span></div>
-          <ul class="exp-bullets">
-            <li><strong>Front-end shipped:</strong> multi-page static portfolio in vanilla HTML, CSS, and JavaScript — dark/light theme toggle, live GitHub activity feed via the GitHub API, fully responsive. No frameworks, no build step.</li>
-            <li><strong>Back-end (in progress):</strong> blog engine in Go using <code>net/http</code>, <code>html/template</code>, and SQLite — standard library only, with goldmark for Markdown rendering.</li>
-            <li><strong>CI/CD (planned):</strong> GitHub Actions for build, test, and deploy. A single Go binary serves both the landing page and the blog routes. Stretch: rebuild the frontend as a React + TypeScript SPA against the same JSON API.</li>
-          </ul>
+          <p class="exp-stack">live: <a href="https://optimaldevs.tech" target="_blank" rel="noopener">optimaldevs.tech</a> · react · javascript · aws · node.js · github actions · ci/cd · cloud deployment</p>
         </div>
       </div>
 
@@ -76,12 +68,75 @@
       </div>
 
       <div class="exp-item">
-        <div class="exp-when">Jan 2021 — Aug 2024</div>
+        <div class="exp-when">Feb 2022 — Jun 2026</div>
         <div class="exp-body">
-          <div class="exp-title">Certified Pharmacy Technician (CPhT) <span class="exp-org">— Walmart Pharmacy, Denver, CO</span></div>
+          <div class="exp-title">Dock Clerk Supervisor <span class="exp-org">— Alan Ritchey</span></div>
+          <p class="exp-desc">Before transitioning fully into software, I built leadership and operations experience in a high-pressure logistics environment.</p>
           <ul class="exp-bullets">
-            <li>Managed high-volume workflows (200+ daily) and resolved complex insurance issues as a liaison between patients and prescribers.</li>
+            <li>Supervised overnight USPS logistics operations, coordinating trailer flow, package scanning, shift assignments, and dispatch communication.</li>
+            <li>Trained team members on scanning systems, workflow standards, safety procedures, and exception handling.</li>
+            <li>Resolved real-time routing, staffing, shipment, and dock coordination issues to keep mail processing on schedule.</li>
+            <li>Strengthened communication, prioritization, and problem-solving skills under time-sensitive conditions.</li>
           </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>projects</h2>
+    <div class="exp-list">
+
+      <div class="exp-item proj-item">
+        <div class="exp-body">
+          <div class="exp-title">optimaldevs.tech <span class="exp-org">— Agency Marketing Platform</span></div>
+          <p class="exp-stack">react · javascript · vite · tailwind css · aws · node.js · github actions</p>
+          <p class="exp-desc">OptimalDevs is the production website for the development collective I founded. The site explains our services, team, partnership model, and contact workflow for small business owners.</p>
+          <ul class="exp-bullets">
+            <li>Built a responsive single-page application using React, JavaScript, Vite, Tailwind CSS, and React Router.</li>
+            <li>Designed reusable sections for services, team profiles, partnership information, portfolio cards, and contact flow.</li>
+            <li>Deployed the frontend using Amazon S3, CloudFront, Route 53, ACM, and Origin Access Control.</li>
+            <li>Built a serverless contact form using Node.js, AWS Lambda, API Gateway, Amazon SES, and IAM.</li>
+            <li>Implemented deployment automation with GitHub Actions, including lint/build checks, S3 sync, cache headers, and CloudFront invalidation.</li>
+            <li>Added production-focused infrastructure including HTTPS, CDN caching, private S3 origin access, and low-cost hosting.</li>
+          </ul>
+          <p class="exp-learned"><strong>What I learned:</strong> frontend architecture, AWS static hosting, serverless backend design, cloud permissions, CI/CD, DNS, SSL/TLS, and production deployment.</p>
+        </div>
+      </div>
+
+      <div class="exp-item proj-item">
+        <div class="exp-body">
+          <div class="exp-title">vics.codes <span class="exp-org">— Portfolio + Blog Backend</span></div>
+          <p class="exp-stack">go · sqlite · aws ec2 · caddy · github actions · linux</p>
+          <p class="exp-desc">This is my personal portfolio and technical blog platform. The landing site introduces my background and projects, while the blog backend supports dynamic technical posts.</p>
+          <ul class="exp-bullets">
+            <li>Built a production Go backend for serving blog posts through a lightweight HTTP server.</li>
+            <li>Used SQLite for persistent storage, including blog posts, slugs, summaries, draft state, and publish status.</li>
+            <li>Implemented a Markdown publishing pipeline that converts technical posts into safe, syntax-highlighted HTML using Go templates and embedded assets.</li>
+            <li>Built admin workflows for creating, editing, publishing, and summarizing posts.</li>
+            <li>Deployed the backend on an AWS EC2 Linux server behind Caddy HTTPS.</li>
+            <li>Secured the server using firewall rules, key-only SSH, fail2ban, automated security updates, systemd service management, and Caddy reverse proxying.</li>
+            <li>Automated deployment with GitHub Actions using cross-compiled Go binaries, service restarts, health checks, and safer release patterns.</li>
+          </ul>
+          <p class="exp-learned"><strong>What I learned:</strong> backend development in Go, Linux server administration, SQLite persistence, reverse proxying, HTTPS, CI/CD, AWS EC2 deployment, and production hardening.</p>
+        </div>
+      </div>
+
+      <div class="exp-item proj-item">
+        <div class="exp-body">
+          <div class="exp-title">RESTful Multi-User Dungeon API <span class="exp-org">— team project</span></div>
+          <p class="exp-stack">java · spring boot · postgresql · docker · swagger · heroku</p>
+          <p class="exp-desc">A team-based backend project for a distributed multi-user dungeon system. I worked on the player service, which exposed REST endpoints for player-related data.</p>
+          <ul class="exp-bullets">
+            <li>Worked within a 7-member Agile team building a distributed MUD system across multiple services.</li>
+            <li>Owned the Java Spring Boot player service for accounts, characters, and inventory.</li>
+            <li>Built RESTful endpoints backed by PostgreSQL, Spring Data JPA, Hibernate, and Maven.</li>
+            <li>Used Swagger UI to document API contracts for partner teams.</li>
+            <li>Tested API behavior with MockMvc, JUnit, and Mockito.</li>
+            <li>Used Docker-based development scripts and Heroku deployment steps to standardize development and deployment workflow.</li>
+          </ul>
+          <p class="exp-learned"><strong>What I learned:</strong> REST API design, Java backend development, Spring Boot, relational databases, team coordination, service contracts, API testing, and deployment workflows.</p>
         </div>
       </div>
 
@@ -91,16 +146,29 @@
   <section>
     <h2>education</h2>
     <div class="exp-list">
+
       <div class="exp-item">
         <div class="exp-when">expected May 2027</div>
         <div class="exp-body">
           <div class="exp-title">B.S. Computer Science &amp; B.S. Mathematics <span class="exp-org">— Metropolitan State University of Denver</span></div>
           <ul class="exp-bullets">
             <li><strong>Relevant coursework:</strong> Data Structures &amp; Algorithms, Operating Systems, Database Systems, Software Engineering, Linear Algebra.</li>
-            <li class="placeholder">[optional: GPA if it's strong (3.5+), dean's list, scholarships, honors]</li>
+            <li><strong>Academic focus:</strong> software engineering, backend systems, cloud infrastructure, mathematics, and applied problem solving.</li>
           </ul>
         </div>
       </div>
+
+      <div class="exp-item">
+        <div class="exp-when">expected Feb 2027</div>
+        <div class="exp-body">
+          <div class="exp-title">Full Stack Development Cohort <span class="exp-org">— Code the Dream</span></div>
+          <p class="exp-desc">Focused on full-stack web development through structured coursework, projects, and code review.</p>
+          <ul class="exp-bullets">
+            <li><strong>Areas of focus:</strong> JavaScript, React, Node.js, Express.js, REST APIs, databases, Git/GitHub.</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -112,11 +180,15 @@
         <span class="when">2026</span>
       </li>
       <li>
-        <span>AWS Certified Cloud Practitioner <span style="opacity:.7;">(CLF-C02)</span></span>
+        <span>CompTIA PenTest+</span>
         <span class="when">2026</span>
       </li>
       <li>
-        <span>MongoDB Associate Developer <span style="opacity:.7;">(Node.js)</span></span>
+        <span>AWS Certified Developer <span style="opacity:.7;">— Associate</span></span>
+        <span class="when">2026</span>
+      </li>
+      <li>
+        <span>MongoDB Associate Developer</span>
         <span class="when">2026</span>
       </li>
     </ul>
@@ -130,39 +202,83 @@
         <ul>
           <li>python</li>
           <li>typescript</li>
-          <li>javascript</li>
           <li>java</li>
-          <li>go</li>
+          <li>javascript</li>
           <li>c</li>
-          <li>bash · sql</li>
+          <li>bash / shell</li>
+          <li>go</li>
+          <li>sql</li>
         </ul>
       </div>
       <div class="skill-col">
         <h3>web &amp; backend</h3>
         <ul>
-          <li>spring boot</li>
-          <li>node · express</li>
           <li>react</li>
-          <li>fastapi</li>
-          <li>nginx</li>
-          <li>html · css</li>
+          <li>node.js</li>
+          <li>express.js</li>
+          <li>spring boot</li>
+          <li>rest apis</li>
+          <li>html</li>
+          <li>css</li>
+          <li>vite</li>
+          <li>tailwind css</li>
         </ul>
       </div>
       <div class="skill-col">
         <h3>cloud &amp; devops</h3>
         <ul>
-          <li>docker · kubernetes</li>
-          <li>aws · heroku</li>
-          <li>postgresql · mongodb · mysql</li>
-          <li>github actions · ci/cd</li>
-          <li>git · linux cli</li>
-          <li>pytest · vitest · junit</li>
+          <li>aws</li>
+          <li>aws ec2</li>
+          <li>amazon s3</li>
+          <li>cloudfront</li>
+          <li>lambda</li>
+          <li>api gateway</li>
+          <li>route 53</li>
+          <li>docker</li>
+          <li>kubernetes</li>
+          <li>nginx</li>
+          <li>caddy</li>
+          <li>heroku</li>
+          <li>github actions</li>
+          <li>ci/cd</li>
+          <li>linux cli</li>
         </ul>
       </div>
       <div class="skill-col">
-        <h3>ai &amp; embedded</h3>
+        <h3>databases</h3>
         <ul>
-          <li class="placeholder">[ in progress — building up ]</li>
+          <li>postgresql</li>
+          <li>mongodb</li>
+          <li>mysql</li>
+          <li>sqlite</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>testing &amp; tools</h3>
+        <ul>
+          <li>junit</li>
+          <li>mockito</li>
+          <li>mockmvc</li>
+          <li>vitest</li>
+          <li>postman</li>
+          <li>maven</li>
+          <li>git / github</li>
+          <li>valgrind</li>
+          <li>gdb</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>core concepts</h3>
+        <ul>
+          <li>microservices architecture</li>
+          <li>restful apis</li>
+          <li>unit testing</li>
+          <li>object-oriented programming</li>
+          <li>concurrency</li>
+          <li>memory management</li>
+          <li>network security</li>
+          <li>cloud deployment</li>
+          <li>linux administration</li>
         </ul>
       </div>
     </div>
@@ -170,10 +286,10 @@
 
   <footer>
     <a href="https://github.com/victor0302" target="_blank" rel="noopener">github</a>
-    <a href="#">linkedin</a>
+    <a href="https://linkedin.com/in/victorsalazarrosales" target="_blank" rel="noopener">linkedin</a>
     <a href="mailto:victorsalazar.01.vv@gmail.com">email</a>
     <a href="#">resume.pdf</a>
-    <span style="margin-left:auto;">$ updated · 2026-06-22</span>
+    <span style="margin-left:auto;">$ updated · 2026-07-02</span>
   </footer>
 </main>
 
