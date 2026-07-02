@@ -1,0 +1,63 @@
+name: gh-activity daily snapshot
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # 06:00 UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: gh-activity
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch and filter public events
+        env:
+          GH_USER: victor0302
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          curl -sSf \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/users/$GH_USER/events/public?per_page=30" \
+          | jq '{
+              fetched_at: (now | todate),
+              events: [.[] | select(.type as $t | ["PushEvent","WatchEvent","CreateEvent","PullRequestEvent","ReleaseEvent","ForkEvent","PublicEvent","IssuesEvent"] | index($t))] | .[0:6]
+            }' > landing/gh-activity.json
+
+      - name: Open PR if changed
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(activity): refresh gh-activity snapshot"
+          branch: automated/gh-activity
+          delete-branch: true
+          title: "chore(activity): daily gh-activity snapshot"
+          body: |
+            Automated snapshot of `victor0302` GitHub public events.
+
+            Runs from `.github/workflows/gh-activity.yml` on a daily cron
+            (06:00 UTC) plus manual `workflow_dispatch`.
+
+            Merges itself once CI passes — assuming "Allow auto-merge" is
+            enabled in repo settings. If not, this PR just sits open until
+            merged manually.
+          labels: automated
+
+      - name: Enable auto-merge
+        if: steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}" \
+            || echo "auto-merge unavailable — PR left open for manual merge"

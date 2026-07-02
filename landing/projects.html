@@ -41,11 +41,7 @@
     <div class="gitlog">
       <div class="head">commit log · <span class="b">main</span> · last 7 days</div>
       <div id="gh-rows">
-        <div class="row"><span class="hash">a3f9c21</span><span class="ago">2h ago</span><span class="msg"><span class="verb">push</span> to <a href="#">go-blog</a>: add post handler + slug routing</span></div>
-        <div class="row"><span class="hash">b71e480</span><span class="ago">yesterday</span><span class="msg"><span class="verb">write</span> <a href="#">"why i'm rewriting tools from scratch"</a></span></div>
-        <div class="row"><span class="hash">c0d4a8e</span><span class="ago">3d ago</span><span class="msg"><span class="verb">star</span> <a href="#">mattn/go-sqlite3</a></span></div>
-        <div class="row"><span class="hash">d9e2117</span><span class="ago">5d ago</span><span class="msg"><span class="verb">deploy</span> <a href="#">logsift v0.3</a> — adds policy alert classifier<span class="tag">(tag: v0.3.0)</span></span></div>
-        <div class="row"><span class="hash">e44ba39</span><span class="ago">6d ago</span><span class="msg"><span class="verb">read</span> TLPI ch. 24 — processes &amp; signals</span></div>
+        <div class="row"><span class="msg" style="color:var(--dim)">loading recent activity…</span></div>
       </div>
     </div>
   </section>
@@ -135,29 +131,11 @@
 
 <script>
   // ─── github activity ──────────────────────────────────────────────
-  // change this to your github handle. leave as 'YOUR_USERNAME' to keep
-  // the hardcoded sample rows above.
-  const GITHUB_USERNAME = 'victor0302';
-
-  const CACHE_KEY = 'gh-activity-cache';
-  const CACHE_TTL_MS = 30 * 60 * 1000;        // 30 min
+  // Reads a static snapshot generated daily by
+  // .github/workflows/gh-activity.yml (see landing/gh-activity.json).
+  // Same-origin fetch → no CORS, no per-visitor rate limit, no client
+  // caching surprises.
   const MAX_ROWS = 6;
-  const INTERESTING = new Set([
-    'PushEvent','WatchEvent','CreateEvent','PullRequestEvent',
-    'ReleaseEvent','ForkEvent','PublicEvent','IssuesEvent'
-  ]);
-
-  async function fetchGhEvents(user) {
-    try {
-      const c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (c && c.user === user && Date.now() - c.ts < CACHE_TTL_MS) return c.events;
-    } catch {}
-    const res = await fetch(`https://api.github.com/users/${user}/events/public?per_page=30`);
-    if (!res.ok) throw new Error('gh ' + res.status);
-    const events = await res.json();
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ user, ts: Date.now(), events })); } catch {}
-    return events;
-  }
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c =>
@@ -232,19 +210,24 @@
     return `<div class="row"><span class="hash">${hash}</span><span class="ago">${esc(ago)}</span><span class="msg"><span class="verb">${esc(verb)}</span> ${msg}</span></div>`;
   }
 
+  function emptyRow(text) {
+    return `<div class="row"><span class="msg" style="color:var(--dim)">${esc(text)}</span></div>`;
+  }
+
   (async function loadActivity() {
-    if (GITHUB_USERNAME === 'YOUR_USERNAME') return;
     const container = document.getElementById('gh-rows');
     if (!container) return;
     try {
-      const events = await fetchGhEvents(GITHUB_USERNAME);
-      const rows = events
-        .filter(e => INTERESTING.has(e.type))
-        .slice(0, MAX_ROWS)
-        .map(renderEvent);
-      if (rows.length) container.innerHTML = rows.join('');
+      const res = await fetch('/gh-activity.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error('gh-activity ' + res.status);
+      const { events = [] } = await res.json();
+      const rows = events.slice(0, MAX_ROWS).map(renderEvent);
+      container.innerHTML = rows.length
+        ? rows.join('')
+        : emptyRow('no recent public activity');
     } catch (err) {
-      console.warn('github activity unavailable, keeping sample rows:', err);
+      console.warn('gh-activity unavailable:', err);
+      container.innerHTML = emptyRow('activity unavailable — check back later');
     }
   })();
 </script>
