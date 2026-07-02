@@ -326,6 +326,11 @@ td.stack .pill.c      { background: var(--c-c); }
 .status.shipped { color: var(--green); border-color: var(--green); }
 .status.wip { color: var(--accent); border-color: var(--accent); }
 td.loc { color: var(--dim); font-variant-numeric: tabular-nums; }
+td.stack .stack-detail {
+  color: var(--dim); font-size: .72rem;
+  margin-top: .3rem; letter-spacing: .02em;
+  white-space: nowrap;
+}
 
 /* ─── footer ─────────────────────────────────────────────────── */
 footer {
