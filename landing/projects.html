@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Victor Salazar — projects</title>
-<meta name="description" content="Victor Salazar — projects and recent GitHub activity.">
+<meta name="description" content="Victor Salazar — projects, production apps, backend systems, and cloud infrastructure.">
 <script>
   (function() {
     var saved = localStorage.getItem('theme');
@@ -33,7 +33,7 @@
   <header>
     <p class="prompt-row"><span class="g">vic@home</span>:<span class="b">~/projects</span>$ ls -la</p>
     <h1>Projects<span class="dot-end">.</span></h1>
-    <p class="tagline">things i've built · recent activity from github</p>
+    <p class="tagline">things i've built · production apps · backend systems · cloud infrastructure</p>
   </header>
 
   <section>
@@ -64,27 +64,57 @@
         </thead>
         <tbody>
           <tr>
+            <td class="year">2026</td>
+            <td class="name">
+              <a class="proj-title" href="https://github.com/victor0302/portfolio" target="_blank" rel="noopener">vics.codes Portfolio Blog Backend</a>
+              <p class="proj-desc">Production Go blog backend with SQLite persistence, Markdown rendering, Caddy HTTPS reverse proxy, GitHub Actions deployment, and AWS EC2 Linux hardening.</p>
+            </td>
+            <td class="stack"><span class="pill go">go</span><div class="stack-detail">sqlite · aws ec2 · caddy · github actions</div></td>
+            <td><span class="status shipped">shipped</span></td>
+          </tr>
+          <tr>
+            <td class="year">2025</td>
+            <td class="name">
+              <a class="proj-title" href="https://optimaldevs.tech" target="_blank" rel="noopener">optimaldevs.tech</a>
+              <p class="proj-desc">Agency marketing platform for a development collective; React frontend, AWS S3/CloudFront hosting, serverless Node.js contact form, SES email delivery, and CI/CD pipeline.</p>
+            </td>
+            <td class="stack"><span class="pill web">react</span><div class="stack-detail">javascript · aws · node.js</div></td>
+            <td><span class="status shipped">shipped</span></td>
+          </tr>
+          <tr>
             <td class="year">2023</td>
-            <td class="name"><a href="https://github.com/victor0302/a-cloud-hosted-microservices-architecture-for-mmos-player-team-section-1" target="_blank" rel="noopener">RESTful Multi-User Dungeon API</a> — distributed MUD built with a 7-member Agile team; Player / World / Character microservices, Spring Boot + PostgreSQL, deployed to Heroku via Docker Compose</td>
-            <td class="stack"><span class="pill java">java</span></td>
+            <td class="name">
+              <a class="proj-title" href="https://github.com/victor0302/a-cloud-hosted-microservices-architecture-for-mmos-player-team-section-1" target="_blank" rel="noopener">RESTful Multi-User Dungeon API</a>
+              <p class="proj-desc">Distributed MUD backend built with a 7-member Agile team; Java Spring Boot player service with PostgreSQL, Swagger API docs, Docker workflow, and Heroku deployment.</p>
+            </td>
+            <td class="stack"><span class="pill java">java</span><div class="stack-detail">spring boot · postgresql · docker</div></td>
             <td><span class="status shipped">shipped</span></td>
           </tr>
           <tr>
             <td class="year">2025</td>
-            <td class="name">Distributed Microservices Blogging Platform — polyglot stack decoupling auth from content over REST; Nginx API gateway, stateless JWT/bcrypt auth, fully containerized</td>
-            <td class="stack"><span class="pill web">node · py · react</span></td>
+            <td class="name">
+              <span class="proj-title">Distributed Microservices Blogging Platform</span>
+              <p class="proj-desc">Polyglot microservices app decoupling authentication from content over REST; Nginx API gateway, JWT/bcrypt auth, React frontend, and containerized services.</p>
+            </td>
+            <td class="stack"><span class="pill web">node · py · react</span><div class="stack-detail">nginx · docker</div></td>
             <td><span class="status shipped">shipped</span></td>
           </tr>
           <tr>
             <td class="year">2025</td>
-            <td class="name">POSIX-Compliant Shell Implementation — Unix command-line interpreter in C; full process lifecycle, signal handling, zero-dependency lexer, manual memory management profiled with Valgrind</td>
-            <td class="stack"><span class="pill c">c</span></td>
+            <td class="name">
+              <span class="proj-title">POSIX-Compliant Shell Implementation</span>
+              <p class="proj-desc">Unix command-line interpreter in C with process lifecycle handling, signals, custom lexer, and manual memory management profiled with Valgrind.</p>
+            </td>
+            <td class="stack"><span class="pill c">c</span><div class="stack-detail">unix · valgrind · gdb</div></td>
             <td><span class="status shipped">shipped</span></td>
           </tr>
           <tr>
             <td class="year">2026</td>
-            <td class="name"><a href="https://github.com/victor0302/WebScraper" target="_blank" rel="noopener">Web Scraper</a> — TypeScript/Node tool for HTML parsing &amp; CSV reporting with concurrency control, typed pipeline, and Vitest unit tests</td>
-            <td class="stack"><span class="pill web">typescript</span></td>
+            <td class="name">
+              <a class="proj-title" href="https://github.com/victor0302/WebScraper" target="_blank" rel="noopener">Web Scraper</a>
+              <p class="proj-desc">TypeScript/Node.js tool for HTML parsing and CSV reporting with concurrency control, typed data pipeline, and Vitest unit tests.</p>
+            </td>
+            <td class="stack"><span class="pill web">typescript</span><div class="stack-detail">node.js · vitest</div></td>
             <td><span class="status shipped">shipped</span></td>
           </tr>
         </tbody>
@@ -94,10 +124,10 @@
 
   <footer>
     <a href="https://github.com/victor0302" target="_blank" rel="noopener">github</a>
-    <a href="#">linkedin</a>
+    <a href="https://linkedin.com/in/victorsalazarrosales" target="_blank" rel="noopener">linkedin</a>
     <a href="mailto:victorsalazar.01.vv@gmail.com">email</a>
     <a href="#">resume.pdf</a>
-    <span style="margin-left:auto;">$ updated · 2026-06-22</span>
+    <span style="margin-left:auto;">$ updated · 2026-07-02</span>
   </footer>
 </main>
 
