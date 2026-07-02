@@ -5,7 +5,7 @@
 --
 -- Changes:
 --   - body: drop the "occasional opinion about tooling" bullet
---   - ascii_art: drop "world" from the caption line
+--   - ascii_art: drop the caption line entirely, keep just the figlet
 --   - created_at: pin to 2026-06-15 (real publish date)
 --   - summary: clear so the index falls back to the excerpt until it's
 --     regenerated (the cached summary was written against the old body)
@@ -24,7 +24,7 @@ A few things I''d like to use this for:
 | |_| |/ _ \ | |/ _ \| |
 |  _  |  __/ | | (_) |_|
 |_| |_|\___|_|_|\___/(_)
-       hello,',
+',
   summary = '',
   created_at = '2026-06-15 12:00:00',
   updated_at = CURRENT_TIMESTAMP

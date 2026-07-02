@@ -30,7 +30,7 @@ var seedPosts = []models.Post{
 | |_| |/ _ \ | |/ _ \| |
 |  _  |  __/ | | (_) |_|
 |_| |_|\___|_|_|\___/(_)
-       hello,`,
+`,
 		Body: `First post on the new **blog backend**. Written in Go, served from SQLite.
 
 A few things I'd like to use this for:
