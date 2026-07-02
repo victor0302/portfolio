@@ -120,6 +120,12 @@ I've been into tech since I was a kid. It started with jailbreaking my Apple stu
 
 All of that ran in the background of my life. Somewhere along the way I fell hard for math, and by the end of high school I'd taken enough college classes at our local community college, [NJC](https://www.njc.edu/), to know that math + CS was the direction I wanted. So I applied to MSU Denver for the dual bachelor's — Computer Science and Mathematics — and I'm now one school year out from graduating.
 
+Alongside school I also founded [OptimalDevs](https://optimaldevs.tech), a small four-person development collective shipping AWS-hosted sites for local small businesses.
+
+## Where I'm headed
+
+I'm aiming at security engineering and DevSecOps — the space where "poking at stuff to see how it breaks" and "shipping production infrastructure" overlap. I like rebuilding tools I use as a way to actually learn them; it's how a lot of the projects on this site got started.
+
 ## Outside of code
 
 - **Reading** technical books — currently rotating through databases, Linux internals, web dev, and AI.
@@ -128,6 +134,10 @@ All of that ran in the background of my life. Somewhere along the way I fell har
 - **Soccer** — huge fan. Vamos México.
 - **Cats** — Luffy and Dio (and yes, from the anime, thanks for asking).
 - **Anime + manga** — favorites are *JoJo's Bizarre Adventure*, *Hunter x Hunter*, and *Neon Genesis Evangelion*; favorite manga are *Vagabond*, *The Climber*, and *Real*.
+
+## What you'll find here
+
+This blog is where I write down what I'm currently learning. Expect notes on Go, databases, Linux internals, security, and whatever weird thing I'm poking at that week.
 
 ## Where to find me
 
