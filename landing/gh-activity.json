@@ -1,0 +1,264 @@
+{
+  "fetched_at": "2026-07-02T15:43:29Z",
+  "events": [
+    {
+      "id": "11282458169",
+      "type": "PullRequestEvent",
+      "actor": {
+        "id": 74636868,
+        "login": "victor0302",
+        "display_login": "victor0302",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/victor0302",
+        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
+      },
+      "repo": {
+        "id": 1277444424,
+        "name": "victor0302/portfolio",
+        "url": "https://api.github.com/repos/victor0302/portfolio"
+      },
+      "payload": {
+        "action": "merged",
+        "number": 92,
+        "pull_request": {
+          "url": "https://api.github.com/repos/victor0302/portfolio/pulls/92",
+          "id": 3979510666,
+          "number": 92,
+          "head": {
+            "ref": "content/drop-research-entry",
+            "sha": "bc8dae5a9ece7773d2c2f2aaab358af90fc88094",
+            "repo": {
+              "id": 1277444424,
+              "url": "https://api.github.com/repos/victor0302/portfolio",
+              "name": "portfolio"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "6b5bbed8d78be7ee08fafc4a14176d63908d9041",
+            "repo": {
+              "id": 1277444424,
+              "url": "https://api.github.com/repos/victor0302/portfolio",
+              "name": "portfolio"
+            }
+          }
+        }
+      },
+      "public": true,
+      "created_at": "2026-07-02T15:31:45Z"
+    },
+    {
+      "id": "14239338974",
+      "type": "PushEvent",
+      "actor": {
+        "id": 74636868,
+        "login": "victor0302",
+        "display_login": "victor0302",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/victor0302",
+        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
+      },
+      "repo": {
+        "id": 1277444424,
+        "name": "victor0302/portfolio",
+        "url": "https://api.github.com/repos/victor0302/portfolio"
+      },
+      "payload": {
+        "repository_id": 1277444424,
+        "push_id": 36528252270,
+        "ref": "refs/heads/main",
+        "head": "0261833a6a7877d7567371c67ad153324e95e264",
+        "before": "6b5bbed8d78be7ee08fafc4a14176d63908d9041"
+      },
+      "public": true,
+      "created_at": "2026-07-02T15:31:46Z"
+    },
+    {
+      "id": "11282365195",
+      "type": "PullRequestEvent",
+      "actor": {
+        "id": 74636868,
+        "login": "victor0302",
+        "display_login": "victor0302",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/victor0302",
+        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
+      },
+      "repo": {
+        "id": 1277444424,
+        "name": "victor0302/portfolio",
+        "url": "https://api.github.com/repos/victor0302/portfolio"
+      },
+      "payload": {
+        "action": "opened",
+        "number": 92,
+        "pull_request": {
+          "url": "https://api.github.com/repos/victor0302/portfolio/pulls/92",
+          "id": 3979510666,
+          "number": 92,
+          "head": {
+            "ref": "content/drop-research-entry",
+            "sha": "bc8dae5a9ece7773d2c2f2aaab358af90fc88094",
+            "repo": {
+              "id": 1277444424,
+              "url": "https://api.github.com/repos/victor0302/portfolio",
+              "name": "portfolio"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "6b5bbed8d78be7ee08fafc4a14176d63908d9041",
+            "repo": {
+              "id": 1277444424,
+              "url": "https://api.github.com/repos/victor0302/portfolio",
+              "name": "portfolio"
+            }
+          }
+        }
+      },
+      "public": true,
+      "created_at": "2026-07-02T15:29:54Z"
+    },
+    {
+      "id": "14239233309",
+      "type": "CreateEvent",
+      "actor": {
+        "id": 74636868,
+        "login": "victor0302",
+        "display_login": "victor0302",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/victor0302",
+        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
+      },
+      "repo": {
+        "id": 1277444424,
+        "name": "victor0302/portfolio",
+        "url": "https://api.github.com/repos/victor0302/portfolio"
+      },
+      "payload": {
+        "ref": "content/drop-research-entry",
+        "ref_type": "branch",
+        "full_ref": "refs/heads/content/drop-research-entry",
+        "master_branch": "main",
+        "description": "Personal portfolio site",
+        "pusher_type": "user"
+      },
+      "public": true,
+      "created_at": "2026-07-02T15:29:52Z"
+    },
+    {
+      "id": "11282290025",
+      "type": "PublicEvent",
+      "actor": {
+        "id": 74636868,
+        "login": "victor0302",
+        "display_login": "victor0302",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/victor0302",
+        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
+      },
+      "repo": {
+        "id": 1277444424,
+        "name": "victor0302/portfolio",
+        "url": "https://api.github.com/repos/victor0302/portfolio"
+      },
+      "payload": {},
+      "public": true,
+      "created_at": "2026-06-22T22:46:20Z"
+    },
+    {
+      "id": "10975478318",
+      "type": "IssuesEvent",
+      "actor": {
+        "id": 74636868,
+        "login": "victor0302",
+        "display_login": "victor0302",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/victor0302",
+        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
+      },
+      "repo": {
+        "id": 1270588898,
+        "name": "victor0302/secret-scanner",
+        "url": "https://api.github.com/repos/victor0302/secret-scanner"
+      },
+      "payload": {
+        "action": "closed",
+        "issue": {
+          "url": "https://api.github.com/repos/victor0302/secret-scanner/issues/5",
+          "repository_url": "https://api.github.com/repos/victor0302/secret-scanner",
+          "labels_url": "https://api.github.com/repos/victor0302/secret-scanner/issues/5/labels{/name}",
+          "comments_url": "https://api.github.com/repos/victor0302/secret-scanner/issues/5/comments",
+          "events_url": "https://api.github.com/repos/victor0302/secret-scanner/issues/5/events",
+          "html_url": "https://github.com/victor0302/secret-scanner/issues/5",
+          "id": 4669286398,
+          "node_id": "I_kwDOS7ul4s8AAAABFk-n_g",
+          "number": 5,
+          "title": "Entropy-based detector for high-entropy strings",
+          "user": {
+            "login": "victor0302",
+            "id": 74636868,
+            "node_id": "MDQ6VXNlcjc0NjM2ODY4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/74636868?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/victor0302",
+            "html_url": "https://github.com/victor0302",
+            "followers_url": "https://api.github.com/users/victor0302/followers",
+            "following_url": "https://api.github.com/users/victor0302/following{/other_user}",
+            "gists_url": "https://api.github.com/users/victor0302/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/victor0302/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/victor0302/subscriptions",
+            "organizations_url": "https://api.github.com/users/victor0302/orgs",
+            "repos_url": "https://api.github.com/users/victor0302/repos",
+            "events_url": "https://api.github.com/users/victor0302/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/victor0302/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "labels": [],
+          "state": "closed",
+          "locked": false,
+          "assignees": [],
+          "milestone": null,
+          "comments": 0,
+          "created_at": "2026-06-15T22:09:19Z",
+          "updated_at": "2026-06-21T04:10:08Z",
+          "closed_at": "2026-06-21T04:10:08Z",
+          "assignee": null,
+          "active_lock_reason": null,
+          "sub_issues_summary": {
+            "total": 0,
+            "completed": 0,
+            "percent_completed": 0
+          },
+          "issue_dependencies_summary": {
+            "blocked_by": 0,
+            "total_blocked_by": 0,
+            "blocking": 0,
+            "total_blocking": 0
+          },
+          "body": "Goal: catch secrets that don't match a known regex pattern.\n\nAcceptance:\n- Compute Shannon entropy on string literals / long tokens\n- Configurable threshold (default ~4.5)\n- Heuristics to suppress noise: base64 image blobs, long URLs, content hashes\n- Unit-tested",
+          "reactions": {
+            "url": "https://api.github.com/repos/victor0302/secret-scanner/issues/5/reactions",
+            "total_count": 0,
+            "+1": 0,
+            "-1": 0,
+            "laugh": 0,
+            "hooray": 0,
+            "confused": 0,
+            "heart": 0,
+            "rocket": 0,
+            "eyes": 0
+          },
+          "timeline_url": "https://api.github.com/repos/victor0302/secret-scanner/issues/5/timeline",
+          "performed_via_github_app": null,
+          "state_reason": "completed",
+          "pinned_comment": null
+        }
+      },
+      "public": true,
+      "created_at": "2026-06-25T17:51:15Z"
+    }
+  ]
+}
