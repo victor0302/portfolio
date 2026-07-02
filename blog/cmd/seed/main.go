@@ -30,14 +30,13 @@ var seedPosts = []models.Post{
 | |_| |/ _ \ | |/ _ \| |
 |  _  |  __/ | | (_) |_|
 |_| |_|\___|_|_|\___/(_)
-       hello, world.`,
+`,
 		Body: `First post on the new **blog backend**. Written in Go, served from SQLite.
 
 A few things I'd like to use this for:
 
 - Notes on whatever I'm currently building
 - Stuff I'm learning about Go, SQL, and the web
-- The occasional opinion about [tooling](https://example.com)
 `,
 		Published: true,
 	},
