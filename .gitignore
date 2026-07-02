@@ -3,3 +3,6 @@ notes/
 
 # Phase planning docs — pre-work scratch. Not for the repo.
 planning/
+
+# Session handoff doc for the next agent. Local only.
+TRANSFER.md
