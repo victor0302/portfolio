@@ -288,9 +288,9 @@ table.work {
   width: 100%; border-collapse: collapse; font-size: .9rem;
 }
 table.work th, table.work td {
-  text-align: left; padding: .65rem .75rem;
+  text-align: left; padding: 1rem .85rem;
   border-bottom: 1px solid var(--rule);
-  vertical-align: middle;
+  vertical-align: top;
 }
 table.work th {
   font-size: .68rem; font-weight: 500; color: var(--dim);
@@ -298,12 +298,26 @@ table.work th {
 }
 table.work tr { transition: background .15s ease; }
 table.work tbody tr:hover { background: var(--panel); }
-table.work td.year { color: var(--dim); width: 3.5rem; }
+table.work td.year {
+  color: var(--dim); width: 3.5rem;
+  font-variant-numeric: tabular-nums;
+}
 table.work td.name a {
   color: var(--fg); text-decoration: none;
   border-bottom: 1px solid transparent;
 }
 table.work td.name a:hover { color: var(--accent); border-color: var(--accent); }
+td.name .proj-title {
+  display: inline-block;
+  font-size: 1.05rem; font-weight: 600;
+  letter-spacing: -.005em; line-height: 1.3;
+  margin-bottom: .35rem;
+}
+td.name .proj-desc {
+  color: var(--dim); font-size: .82rem;
+  line-height: 1.55; max-width: 60ch;
+  margin: 0;
+}
 .pill {
   font-size: .65rem; text-transform: uppercase; letter-spacing: .12em;
   padding: .12rem .5rem; border-radius: 3px;
@@ -328,8 +342,7 @@ td.stack .pill.c      { background: var(--c-c); }
 td.loc { color: var(--dim); font-variant-numeric: tabular-nums; }
 td.stack .stack-detail {
   color: var(--dim); font-size: .72rem;
-  margin-top: .3rem; letter-spacing: .02em;
-  white-space: nowrap;
+  margin-top: .35rem; letter-spacing: .02em;
 }
 
 /* ─── footer ─────────────────────────────────────────────────── */
