@@ -6,3 +6,9 @@ planning/
 
 # Session handoff doc for the next agent. Local only.
 TRANSFER.md
+
+# Local SQLite database — created by running the blog server locally.
+# Production data lives on the server, never in the repo.
+blog/*.db
+blog/*.db-shm
+blog/*.db-wal
