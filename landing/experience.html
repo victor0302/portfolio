@@ -41,18 +41,34 @@
     <div class="exp-list">
 
       <div class="exp-item">
+        <div class="exp-when">jun 2026 — present</div>
+        <div class="exp-body">
+          <div class="exp-title">Jr. GIS Analyst <span class="exp-org">— Forged Fiber 37</span></div>
+          <p class="exp-desc">Fiber network data and geospatial records supporting residential construction planning across the Denver metro.</p>
+          <ul class="exp-bullets">
+            <li>Maintain fiber network data in 3GIS by updating service location coordinates, GIS polygons, address records, and distribution layouts.</li>
+            <li>Analyze geospatial database records, spatial design changes, and desktop cost estimates to identify mapping inconsistencies and improve data accuracy.</li>
+            <li>Support GIS data validation workflows using Python, SQL, and structured QA checks to improve service address data, network records, and planning documentation.</li>
+          </ul>
+          <p class="exp-stack">3gis · python · sql · geospatial data · qa validation</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
         <div class="exp-when">2025 — present</div>
         <div class="exp-body">
           <div class="exp-title">Founder &amp; Technical Lead <span class="exp-org">— OptimalDevs</span></div>
-          <p class="exp-desc">Founded OptimalDevs, a small software development collective focused on building production websites and web applications for local small businesses.</p>
+          <p class="exp-desc">OptimalDevs is the software collective I founded. We deliver client websites, internal tooling, and client-facing software for small businesses around Denver through a zero-cost partnership model.</p>
           <ul class="exp-bullets">
-            <li>Founded a four-person development collective delivering AWS-hosted full-stack web applications through a zero-cost partnership model.</li>
-            <li>Built and led a cross-functional team across frontend development, cloud infrastructure, DevOps, and security.</li>
-            <li>Mentored developers in React, JavaScript, AWS deployment, GitHub workflows, and production release practices.</li>
-            <li>Established a GitHub-based workflow using issues, Kanban planning, feature branches, pull requests, and CI checks.</li>
-            <li>Led technical planning, deployment decisions, release coordination, and project direction for the agency website and future client projects.</li>
+            <li>Direct a collective of four developers delivering client websites, internal tools, and business software for local small businesses.</li>
+            <li>Independently authored all 24 commits and 23 merged pull requests behind a 15 page marketing site for a Denver home services client, built with Astro, React, TypeScript, and Tailwind CSS.</li>
+            <li>Deployed that site to AWS EC2 with Route 53 DNS, Caddy-managed HTTPS, and GitHub Actions builds, giving the client reviewable preview releases ahead of the production launch.</li>
+            <li>Built the local search layer with LocalBusiness, Service, and FAQ JSON-LD, canonical URLs, sitemap generation, Open Graph metadata, and an online quote funnel.</li>
+            <li>Lead technical delivery on internal tooling (BuildStory, an AI repository onboarding platform) and an AI-assisted real estate listing presentation tool in design for a Colorado client.</li>
+            <li>Run the engineering workflow: Kanban planning, feature branches, pull requests, and CI checks on every release.</li>
+            <li>Mentor three developers on delivery standards, AWS deployment, and production release practices.</li>
           </ul>
-          <p class="exp-stack">live: <a href="https://optimaldevs.tech" target="_blank" rel="noopener">optimaldevs.tech</a> · react · javascript · aws · node.js · github actions · ci/cd · cloud deployment</p>
+          <p class="exp-stack">live: <a href="https://optimaldevs.tech" target="_blank" rel="noopener">optimaldevs.tech</a> · astro · react · typescript · aws ec2 · route 53 · caddy · github actions · json-ld</p>
         </div>
       </div>
 
@@ -76,6 +92,52 @@
   <section>
     <h2>projects</h2>
     <div class="exp-list">
+
+      <div class="exp-item proj-item">
+        <div class="exp-body">
+          <div class="exp-title">BuildStory <span class="exp-org">— AI Repository Onboarding Platform</span></div>
+          <p class="exp-stack">next.js · fastapi · postgresql/pgvector · aws ecs · terraform · docker</p>
+          <p class="exp-desc">An internal OptimalDevs tool that turns a repository's own history into something a new developer can actually read, instead of a wall of unfamiliar files.</p>
+          <ul class="exp-bullets">
+            <li>Turned GitHub commits, pull requests, and source files into searchable timelines, guided repository tours, repository-aware chat, and plain-language explanations.</li>
+            <li>Implemented hybrid retrieval with embeddings, vector search, and PostgreSQL full-text search so answers stay grounded in real repository context.</li>
+            <li>Added AI usage controls to keep inference costs bounded per repository.</li>
+            <li>Provisioned AWS infrastructure with Terraform, ECS Fargate, RDS PostgreSQL, ECR, ALB, IAM, and CloudWatch.</li>
+            <li>Automated releases with Docker images and GitHub OIDC, including private networking, rollback, and cost tracking.</li>
+          </ul>
+          <p class="exp-learned"><strong>What I learned:</strong> retrieval-augmented generation, vector search, infrastructure as code, container orchestration, and cost-aware AI system design.</p>
+        </div>
+      </div>
+
+      <div class="exp-item proj-item">
+        <div class="exp-body">
+          <div class="exp-title">Precision Lawn &amp; Gutters <span class="exp-org">— Client Marketing Site</span></div>
+          <p class="exp-stack">astro · react · typescript · tailwind css · aws ec2 · caddy · github actions</p>
+          <p class="exp-desc">Client work through OptimalDevs for a Denver home services business. The site is running on a preview deployment; the launch on the client's production domain is still ahead.</p>
+          <ul class="exp-bullets">
+            <li>Authored all 24 commits and 23 merged pull requests as the sole developer on a 15 page responsive site.</li>
+            <li>Built service pages, location landing pages, and an online quote funnel backed by Web3Forms.</li>
+            <li>Added LocalBusiness, Service, and FAQ JSON-LD, canonical URLs, sitemap generation, and Open Graph metadata for local search.</li>
+            <li>Deployed to AWS EC2 with Route 53 DNS, Caddy-managed HTTPS, and GitHub Actions builds for client-ready preview releases.</li>
+          </ul>
+          <p class="exp-learned"><strong>What I learned:</strong> local SEO structure, static site architecture with Astro, structured data, and building against a real client's review cycle.</p>
+        </div>
+      </div>
+
+      <div class="exp-item proj-item">
+        <div class="exp-body">
+          <div class="exp-title">Microcap Event Intelligence <span class="exp-org">— ML Research Platform</span></div>
+          <p class="exp-stack">python · aws sagemaker · glue · athena · xgboost · cdk</p>
+          <p class="exp-desc">A personal ML research project studying alleged coordinated microcap promotion events, using labels drawn from public federal court documents.</p>
+          <ul class="exp-bullets">
+            <li>Developing an ML pipeline that flags alleged coordinated promotion events from legally documented labels, market data, and social text features.</li>
+            <li>Structuring point-in-time feature engineering to prevent lookahead bias in a time series setting.</li>
+            <li>Designing training and evaluation around SageMaker, XGBoost, purged cross-validation, PR-AUC, precision@k, and SHAP.</li>
+            <li>Planning reproducible MLOps with Model Monitor, CloudWatch, AWS CDK, and serverless inference.</li>
+          </ul>
+          <p class="exp-learned"><strong>What I learned:</strong> time series validation, imbalanced classification metrics, model explainability, and MLOps practices on AWS.</p>
+        </div>
+      </div>
 
       <div class="exp-item proj-item">
         <div class="exp-body">
@@ -165,6 +227,10 @@
     <h2>certifications</h2>
     <ul class="cert-list">
       <li>
+        <span>CompTIA Network+</span>
+        <span class="when">2026</span>
+      </li>
+      <li>
         <span>CompTIA Security+</span>
         <span class="when">2026</span>
       </li>
@@ -174,6 +240,14 @@
       </li>
       <li>
         <span>AWS Certified Developer <span style="opacity:.7;">— Associate</span></span>
+        <span class="when">2026</span>
+      </li>
+      <li>
+        <span>AWS Certified Solutions Architect <span style="opacity:.7;">— Associate</span></span>
+        <span class="when">2026</span>
+      </li>
+      <li>
+        <span>AWS Certified CloudOps Engineer <span style="opacity:.7;">— Associate</span></span>
         <span class="when">2026</span>
       </li>
       <li>
@@ -203,6 +277,9 @@
         <h3>web &amp; backend</h3>
         <ul>
           <li>react</li>
+          <li>next.js</li>
+          <li>astro</li>
+          <li>fastapi</li>
           <li>node.js</li>
           <li>express.js</li>
           <li>spring boot</li>
@@ -218,6 +295,11 @@
         <ul>
           <li>aws</li>
           <li>aws ec2</li>
+          <li>aws ecs / fargate</li>
+          <li>aws rds</li>
+          <li>sagemaker</li>
+          <li>cloudwatch</li>
+          <li>terraform</li>
           <li>amazon s3</li>
           <li>cloudfront</li>
           <li>lambda</li>
@@ -237,6 +319,7 @@
         <h3>databases</h3>
         <ul>
           <li>postgresql</li>
+          <li>pgvector</li>
           <li>mongodb</li>
           <li>mysql</li>
           <li>sqlite</li>
@@ -278,7 +361,7 @@
     <a href="https://linkedin.com/in/victorsalazarrosales" target="_blank" rel="noopener">linkedin</a>
     <a href="mailto:victorsalazar.01.vv@gmail.com">email</a>
     <a href="resume.pdf" target="_blank" rel="noopener">resume.pdf</a>
-    <span style="margin-left:auto;">$ updated · 2026-07-02</span>
+    <span style="margin-left:auto;">$ updated · 2026-08-08</span>
   </footer>
 </main>
 
