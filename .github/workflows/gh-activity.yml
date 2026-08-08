@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write        # needed to dispatch deploy.yml
 
 concurrency:
   group: gh-activity
@@ -61,3 +62,33 @@ jobs:
         run: |
           gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}" \
             || echo "auto-merge unavailable — PR left open for manual merge"
+
+      # Auto-merge waits on the required status check, so the PR is still
+      # open when the step above returns. Poll for the merge, then kick the
+      # deploy by hand: GitHub suppresses `on: push` for merges made with
+      # GITHUB_TOKEN, but workflow_dispatch is exempt from that guard.
+      - name: Deploy once the snapshot lands on main
+        if: steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          set -euo pipefail
+          for _ in $(seq 1 40); do
+            state=$(gh pr view "$PR" --json state --jq .state)
+            case "$state" in
+              MERGED)
+                gh workflow run deploy.yml --ref main
+                echo "snapshot merged — deploy dispatched"
+                exit 0
+                ;;
+              CLOSED)
+                echo "PR #$PR closed without merging — nothing to deploy"
+                exit 0
+                ;;
+            esac
+            sleep 15
+          done
+          echo "PR #$PR still open after 10 minutes — deploy not dispatched." >&2
+          echo "Check whether CI is stuck in action_required approval." >&2
+          exit 1
