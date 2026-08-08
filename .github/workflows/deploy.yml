@@ -3,6 +3,10 @@ name: deploy
 on:
   push:
     branches: [main]
+  # Dispatched by gh-activity.yml after its snapshot PR merges: a merge
+  # performed with GITHUB_TOKEN does not fire `on: push`, so the daily
+  # snapshot would otherwise sit on main and never reach the server.
+  workflow_dispatch:
 
 permissions:
   contents: read
