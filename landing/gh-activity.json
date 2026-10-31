@@ -1,9 +1,9 @@
 {
-  "fetched_at": "2026-08-08T18:37:22Z",
+  "fetched_at": "2026-10-31T11:48:55Z",
   "events": [
     {
-      "id": "12982224201",
-      "type": "PullRequestEvent",
+      "id": "24817274451",
+      "type": "PushEvent",
       "actor": {
         "id": 74636868,
         "login": "victor0302",
@@ -13,42 +13,48 @@
         "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
       },
       "repo": {
-        "id": 1277444424,
-        "name": "victor0302/portfolio",
-        "url": "https://api.github.com/repos/victor0302/portfolio"
+        "id": 1216171453,
+        "name": "victor0302/canvigator",
+        "url": "https://api.github.com/repos/victor0302/canvigator"
       },
       "payload": {
-        "action": "opened",
-        "number": 123,
-        "pull_request": {
-          "url": "https://api.github.com/repos/victor0302/portfolio/pulls/123",
-          "id": 4235612821,
-          "number": 123,
-          "head": {
-            "ref": "chore/ignore-local-sqlite",
-            "sha": "a2814555aeec247a81b471b8daa0e2c516c8e8d5",
-            "repo": {
-              "id": 1277444424,
-              "url": "https://api.github.com/repos/victor0302/portfolio",
-              "name": "portfolio"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "f77dbb6eb2e32ffb8655c5615551a20f3c6bba4a",
-            "repo": {
-              "id": 1277444424,
-              "url": "https://api.github.com/repos/victor0302/portfolio",
-              "name": "portfolio"
-            }
-          }
-        }
+        "repository_id": 1216171453,
+        "push_id": 47165794051,
+        "ref": "refs/heads/create-quiz-cleanups",
+        "head": "2c7b09e742128e42e90299fa908f08b5c28076ef",
+        "before": "bfacbafe097c0e8c18d1aa8fe1588104e5c2947a"
       },
       "public": true,
-      "created_at": "2026-08-08T18:35:29Z"
+      "created_at": "2026-10-20T18:18:47Z"
     },
     {
-      "id": "17143772126",
+      "id": "24718058934",
+      "type": "PushEvent",
+      "actor": {
+        "id": 74636868,
+        "login": "victor0302",
+        "display_login": "victor0302",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/victor0302",
+        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
+      },
+      "repo": {
+        "id": 1216171453,
+        "name": "victor0302/canvigator",
+        "url": "https://api.github.com/repos/victor0302/canvigator"
+      },
+      "payload": {
+        "repository_id": 1216171453,
+        "push_id": 47157515093,
+        "ref": "refs/heads/create-quiz-cleanups",
+        "head": "bfacbafe097c0e8c18d1aa8fe1588104e5c2947a",
+        "before": "7591b737dd459600ba64abe2aade7541af459f61"
+      },
+      "public": true,
+      "created_at": "2026-10-20T16:56:30Z"
+    },
+    {
+      "id": "24575457673",
       "type": "CreateEvent",
       "actor": {
         "id": 74636868,
@@ -59,69 +65,23 @@
         "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
       },
       "repo": {
-        "id": 1277444424,
-        "name": "victor0302/portfolio",
-        "url": "https://api.github.com/repos/victor0302/portfolio"
+        "id": 1216171453,
+        "name": "victor0302/canvigator",
+        "url": "https://api.github.com/repos/victor0302/canvigator"
       },
       "payload": {
-        "ref": "chore/ignore-local-sqlite",
+        "ref": "create-quiz-hardening",
         "ref_type": "branch",
-        "full_ref": "refs/heads/chore/ignore-local-sqlite",
+        "full_ref": "refs/heads/create-quiz-hardening",
         "master_branch": "main",
-        "description": "Personal portfolio site",
+        "description": null,
         "pusher_type": "user"
       },
       "public": true,
-      "created_at": "2026-08-08T18:35:28Z"
+      "created_at": "2026-10-20T00:30:48Z"
     },
     {
-      "id": "12982041327",
-      "type": "PullRequestEvent",
-      "actor": {
-        "id": 74636868,
-        "login": "victor0302",
-        "display_login": "victor0302",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/victor0302",
-        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
-      },
-      "repo": {
-        "id": 1277444424,
-        "name": "victor0302/portfolio",
-        "url": "https://api.github.com/repos/victor0302/portfolio"
-      },
-      "payload": {
-        "action": "opened",
-        "number": 122,
-        "pull_request": {
-          "url": "https://api.github.com/repos/victor0302/portfolio/pulls/122",
-          "id": 4235585119,
-          "number": 122,
-          "head": {
-            "ref": "content/landing-resume-refresh",
-            "sha": "dd3e57c24c3b889ee1cdad414f80d652dcea1969",
-            "repo": {
-              "id": 1277444424,
-              "url": "https://api.github.com/repos/victor0302/portfolio",
-              "name": "portfolio"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "f77dbb6eb2e32ffb8655c5615551a20f3c6bba4a",
-            "repo": {
-              "id": 1277444424,
-              "url": "https://api.github.com/repos/victor0302/portfolio",
-              "name": "portfolio"
-            }
-          }
-        }
-      },
-      "public": true,
-      "created_at": "2026-08-08T18:26:00Z"
-    },
-    {
-      "id": "17143338964",
+      "id": "23770517534",
       "type": "CreateEvent",
       "actor": {
         "id": 74636868,
@@ -132,198 +92,20 @@
         "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
       },
       "repo": {
-        "id": 1277444424,
-        "name": "victor0302/portfolio",
-        "url": "https://api.github.com/repos/victor0302/portfolio"
+        "id": 1216171453,
+        "name": "victor0302/canvigator",
+        "url": "https://api.github.com/repos/victor0302/canvigator"
       },
       "payload": {
-        "ref": "content/landing-resume-refresh",
+        "ref": "create-quiz-fixes",
         "ref_type": "branch",
-        "full_ref": "refs/heads/content/landing-resume-refresh",
+        "full_ref": "refs/heads/create-quiz-fixes",
         "master_branch": "main",
-        "description": "Personal portfolio site",
+        "description": null,
         "pusher_type": "user"
       },
       "public": true,
-      "created_at": "2026-08-08T18:25:59Z"
-    },
-    {
-      "id": "11686908928",
-      "type": "PullRequestEvent",
-      "actor": {
-        "id": 74636868,
-        "login": "victor0302",
-        "display_login": "victor0302",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/victor0302",
-        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
-      },
-      "repo": {
-        "id": 1298617887,
-        "name": "victor0302/react-curriculum-v4-exercises",
-        "url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises"
-      },
-      "payload": {
-        "action": "opened",
-        "number": 1,
-        "pull_request": {
-          "url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/pulls/1",
-          "id": 4040888861,
-          "number": 1,
-          "head": {
-            "ref": "lesson-01",
-            "sha": "6d8394e1bf4df9b4dcd3d9c0347a740bdec158fc",
-            "repo": {
-              "id": 1298617887,
-              "url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises",
-              "name": "react-curriculum-v4-exercises"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "d4c1485544375421644abe845bf5a562e48338b8",
-            "repo": {
-              "id": 1298617887,
-              "url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises",
-              "name": "react-curriculum-v4-exercises"
-            }
-          }
-        }
-      },
-      "public": true,
-      "created_at": "2026-07-13T00:56:15Z"
-    },
-    {
-      "id": "11682902602",
-      "type": "ForkEvent",
-      "actor": {
-        "id": 74636868,
-        "login": "victor0302",
-        "display_login": "victor0302",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/victor0302",
-        "avatar_url": "https://avatars.githubusercontent.com/u/74636868?"
-      },
-      "repo": {
-        "id": 1057306870,
-        "name": "Code-the-Dream-School/react-curriculum-v4-exercises",
-        "url": "https://api.github.com/repos/Code-the-Dream-School/react-curriculum-v4-exercises"
-      },
-      "payload": {
-        "action": "forked",
-        "forkee": {
-          "id": 1298617887,
-          "node_id": "R_kgDOTWdWHw",
-          "name": "react-curriculum-v4-exercises",
-          "full_name": "victor0302/react-curriculum-v4-exercises",
-          "private": false,
-          "owner": {
-            "login": "victor0302",
-            "id": 74636868,
-            "node_id": "MDQ6VXNlcjc0NjM2ODY4",
-            "avatar_url": "https://avatars.githubusercontent.com/u/74636868?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/victor0302",
-            "html_url": "https://github.com/victor0302",
-            "followers_url": "https://api.github.com/users/victor0302/followers",
-            "following_url": "https://api.github.com/users/victor0302/following{/other_user}",
-            "gists_url": "https://api.github.com/users/victor0302/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/victor0302/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/victor0302/subscriptions",
-            "organizations_url": "https://api.github.com/users/victor0302/orgs",
-            "repos_url": "https://api.github.com/users/victor0302/repos",
-            "events_url": "https://api.github.com/users/victor0302/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/victor0302/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "html_url": "https://github.com/victor0302/react-curriculum-v4-exercises",
-          "description": "Exercises for React students",
-          "fork": true,
-          "url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises",
-          "forks_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/forks",
-          "keys_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/keys{/key_id}",
-          "collaborators_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/collaborators{/collaborator}",
-          "teams_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/teams",
-          "hooks_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/hooks",
-          "issue_events_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/issues/events{/number}",
-          "events_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/events",
-          "assignees_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/assignees{/user}",
-          "branches_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/branches{/branch}",
-          "tags_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/tags",
-          "blobs_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/git/blobs{/sha}",
-          "git_tags_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/git/tags{/sha}",
-          "git_refs_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/git/refs{/sha}",
-          "trees_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/git/trees{/sha}",
-          "statuses_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/statuses/{sha}",
-          "languages_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/languages",
-          "stargazers_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/stargazers",
-          "contributors_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/contributors",
-          "subscribers_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/subscribers",
-          "subscription_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/subscription",
-          "commits_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/commits{/sha}",
-          "git_commits_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/git/commits{/sha}",
-          "comments_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/comments{/number}",
-          "issue_comment_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/issues/comments{/number}",
-          "contents_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/contents/{+path}",
-          "compare_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/compare/{base}...{head}",
-          "merges_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/merges",
-          "archive_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/{archive_format}{/ref}",
-          "downloads_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/downloads",
-          "issues_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/issues{/number}",
-          "pulls_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/pulls{/number}",
-          "milestones_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/milestones{/number}",
-          "notifications_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/notifications{?since,all,participating}",
-          "labels_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/labels{/name}",
-          "releases_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/releases{/id}",
-          "deployments_url": "https://api.github.com/repos/victor0302/react-curriculum-v4-exercises/deployments",
-          "created_at": "2026-07-12T20:56:52Z",
-          "updated_at": "2026-07-12T20:56:52Z",
-          "pushed_at": "2026-07-13T00:55:42Z",
-          "git_url": "git://github.com/victor0302/react-curriculum-v4-exercises.git",
-          "ssh_url": "git@github.com:victor0302/react-curriculum-v4-exercises.git",
-          "clone_url": "https://github.com/victor0302/react-curriculum-v4-exercises.git",
-          "svn_url": "https://github.com/victor0302/react-curriculum-v4-exercises",
-          "homepage": null,
-          "size": 2036,
-          "stargazers_count": 0,
-          "watchers_count": 0,
-          "language": null,
-          "has_issues": false,
-          "has_projects": true,
-          "has_downloads": false,
-          "has_wiki": true,
-          "has_pages": false,
-          "has_discussions": false,
-          "forks_count": 0,
-          "mirror_url": null,
-          "archived": false,
-          "disabled": false,
-          "open_issues_count": 1,
-          "license": null,
-          "allow_forking": true,
-          "is_template": false,
-          "web_commit_signoff_required": false,
-          "has_pull_requests": true,
-          "pull_request_creation_policy": "all",
-          "topics": [],
-          "visibility": "public",
-          "forks": 0,
-          "open_issues": 1,
-          "watchers": 0,
-          "default_branch": "main"
-        }
-      },
-      "public": true,
-      "created_at": "2026-07-12T20:56:52Z",
-      "org": {
-        "id": 65357669,
-        "login": "Code-the-Dream-School",
-        "gravatar_id": "",
-        "url": "https://api.github.com/orgs/Code-the-Dream-School",
-        "avatar_url": "https://avatars.githubusercontent.com/u/65357669?"
-      }
+      "created_at": "2026-10-12T11:34:29Z"
     }
   ]
 }
